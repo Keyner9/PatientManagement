@@ -37,4 +37,11 @@ public class PatientsController : ControllerBase
         var response = await _patientService.CreateAsync(dto, cancellationToken);
         return CreatedAtRoute("GetPatientById", new { id = response.Data!.PatientId }, response);
     }
+
+    [HttpPut("{id:int}")]
+    public async Task<IActionResult> UpdateAsync([FromRoute] int id, [FromBody] UpdatePatientDto dto, CancellationToken cancellationToken)
+    {
+        var response = await _patientService.UpdateAsync(id, dto, cancellationToken);
+        return Ok(response);
+    }
 }
