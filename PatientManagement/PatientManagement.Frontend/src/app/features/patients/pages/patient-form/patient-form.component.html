@@ -1,74 +1,63 @@
-<p-card [header]="title()">
-  @if (loading()) {
-    <div class="form-skeleton" aria-label="Loading patient form">
-      @for (item of [1, 2, 3, 4, 5, 6]; track item) {
-        <p-skeleton height="3rem" borderRadius="8px" />
-      }
+<p-card [header]="pageTitle()">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+    <div class="form-grid">
+      <div class="field">
+        <label for="documentType">Document Type</label>
+        <p-select id="documentType" formControlName="documentType" [options]="documentTypes" styleClass="w-full" title="Document type" aria-label="Select document type" />
+      </div>
+
+      <div class="field">
+        <label for="documentNumber">Document Number</label>
+        <input id="documentNumber" pInputText formControlName="documentNumber" class="w-full" autocomplete="off" title="Document number" aria-label="Document number" />
+        @if (form.controls.documentNumber.errors?.['required'] && form.controls.documentNumber.touched) {
+          <p-message severity="error" variant="simple" text="Document number is required" />
+        }
+        @if (form.controls.documentNumber.errors?.['duplicate']) {
+          <p-message severity="error" variant="simple" text="A patient with this document already exists" />
+        }
+      </div>
+
+      <div class="field">
+        <label for="firstName">First Name</label>
+        <input id="firstName" pInputText formControlName="firstName" class="w-full" autocomplete="given-name" title="First name" aria-label="First name" />
+        @if (form.controls.firstName.errors?.['required'] && form.controls.firstName.touched) {
+          <p-message severity="error" variant="simple" text="First name is required" />
+        }
+      </div>
+
+      <div class="field">
+        <label for="lastName">Last Name</label>
+        <input id="lastName" pInputText formControlName="lastName" class="w-full" autocomplete="family-name" title="Last name" aria-label="Last name" />
+        @if (form.controls.lastName.errors?.['required'] && form.controls.lastName.touched) {
+          <p-message severity="error" variant="simple" text="Last name is required" />
+        }
+      </div>
+
+      <div class="field">
+        <label for="birthDate">Birth Date</label>
+        <p-datepicker id="birthDate" formControlName="birthDate" dateFormat="yy-mm-dd" [showIcon]="true" styleClass="w-full" title="Birth date" aria-label="Birth date" />
+        @if (form.controls.birthDate.errors?.['required'] && form.controls.birthDate.touched) {
+          <p-message severity="error" variant="simple" text="Birth date is required" />
+        }
+      </div>
+
+      <div class="field">
+        <label for="phoneNumber">Phone Number</label>
+        <input id="phoneNumber" pInputText formControlName="phoneNumber" class="w-full" autocomplete="tel" title="Phone number" aria-label="Phone number" />
+      </div>
+
+      <div class="field">
+        <label for="email">Email</label>
+        <input id="email" pInputText formControlName="email" class="w-full" autocomplete="email" title="Email address" aria-label="Email address" />
+        @if (form.controls.email.errors?.['email'] && form.controls.email.touched) {
+          <p-message severity="error" variant="simple" text="Invalid email format" />
+        }
+      </div>
     </div>
-  } @else {
-    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="patient-form" novalidate>
-      <div class="form-grid">
-        <div class="field">
-          <label for="documentType">Document Type</label>
-          <p-select inputId="documentType" formControlName="documentType" [options]="documentTypes" optionLabel="label" optionValue="value" placeholder="Select type" ariaLabel="Document type" />
-          @if (hasError('documentType', 'required')) {
-            <small class="p-error">Document type is required.</small>
-          }
-        </div>
 
-        <div class="field">
-          <label for="documentNumber">Document Number</label>
-          <input id="documentNumber" pInputText formControlName="documentNumber" autocomplete="off" />
-          @if (hasError('documentNumber', 'required')) {
-            <small class="p-error">Document number is required.</small>
-          }
-          @if (form.controls.documentNumber.hasError('duplicate')) {
-            <small class="p-error">A patient with this document already exists.</small>
-          }
-        </div>
-
-        <div class="field">
-          <label for="firstName">First Name</label>
-          <input id="firstName" pInputText formControlName="firstName" autocomplete="given-name" />
-          @if (hasError('firstName', 'required')) {
-            <small class="p-error">First name is required.</small>
-          }
-        </div>
-
-        <div class="field">
-          <label for="lastName">Last Name</label>
-          <input id="lastName" pInputText formControlName="lastName" autocomplete="family-name" />
-          @if (hasError('lastName', 'required')) {
-            <small class="p-error">Last name is required.</small>
-          }
-        </div>
-
-        <div class="field">
-          <label for="birthDate">Birth Date</label>
-          <p-datepicker inputId="birthDate" formControlName="birthDate" dateFormat="yy-mm-dd" [showIcon]="true" appendTo="body" ariaLabel="Birth date" />
-          @if (hasError('birthDate', 'required')) {
-            <small class="p-error">Birth date is required.</small>
-          }
-        </div>
-
-        <div class="field">
-          <label for="phoneNumber">Phone Number</label>
-          <input id="phoneNumber" pInputText formControlName="phoneNumber" autocomplete="tel" />
-        </div>
-
-        <div class="field field-wide">
-          <label for="email">Email</label>
-          <input id="email" pInputText formControlName="email" type="email" autocomplete="email" />
-          @if (hasError('email', 'email')) {
-            <small class="p-error">Enter a valid email address.</small>
-          }
-        </div>
-      </div>
-
-      <div class="form-actions">
-        <button pButton type="button" label="Cancel" severity="secondary" class="p-button-text" (click)="cancel()" [disabled]="submitting()"></button>
-        <button pButton type="submit" label="Save" icon="pi pi-save" [loading]="submitting()" [disabled]="form.invalid || submitting()"></button>
-      </div>
-    </form>
-  }
+    <div class="form-actions">
+      <button pButton type="button" severity="secondary" label="Cancel" icon="pi pi-times" (click)="goBack()" title="Cancel and go back" aria-label="Cancel"></button>
+      <button pButton type="submit" label="Save" icon="pi pi-check" [loading]="loading()" [disabled]="form.invalid" title="Save patient" aria-label="Save patient"></button>
+    </div>
+  </form>
 </p-card>

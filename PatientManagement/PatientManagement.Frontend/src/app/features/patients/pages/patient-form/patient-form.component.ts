@@ -1,43 +1,25 @@
 import { ChangeDetectionStrategy, Component, DestroyRef, inject, signal } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
+import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { HttpErrorResponse } from '@angular/common/http';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { MessageService } from 'primeng/api';
-import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
-import { DatePickerModule } from 'primeng/datepicker';
 import { InputTextModule } from 'primeng/inputtext';
+import { ButtonModule } from 'primeng/button';
+import { DatePickerModule } from 'primeng/datepicker';
 import { SelectModule } from 'primeng/select';
-import { SkeletonModule } from 'primeng/skeleton';
-import { CreatePatientDto, UpdatePatientDto } from '../../../../models/patient';
+import { MessageModule } from 'primeng/message';
+import { HttpErrorResponse } from '@angular/common/http';
 import { PatientService } from '../../../../services/patient.service';
+import { ApiResponse, Patient, CreatePatientDto, UpdatePatientDto } from '../../../../models/patient';
 
-interface DocumentTypeOption {
-  label: string;
-  value: string;
-}
-
-type PatientFormValue = {
-  documentType: string;
-  documentNumber: string;
-  firstName: string;
-  lastName: string;
-  birthDate: Date | string;
-  phoneNumber: string;
-  email: string;
-};
+const DOCUMENT_TYPES: string[] = ['DNI', 'CE', 'PASSPORT'];
 
 @Component({
   selector: 'app-patient-form',
   imports: [
     ReactiveFormsModule,
-    ButtonModule,
-    CardModule,
-    DatePickerModule,
-    InputTextModule,
-    SelectModule,
-    SkeletonModule,
+    CardModule, InputTextModule, ButtonModule, DatePickerModule, SelectModule, MessageModule,
   ],
   templateUrl: './patient-form.component.html',
   styleUrl: './patient-form.component.css',
@@ -45,130 +27,103 @@ type PatientFormValue = {
 })
 export class PatientFormComponent {
   readonly #fb = inject(FormBuilder);
-  readonly #route = inject(ActivatedRoute);
-  readonly #router = inject(Router);
-  readonly #destroyRef = inject(DestroyRef);
   readonly #patientService = inject(PatientService);
-  readonly #messageService = inject(MessageService);
+  readonly #router = inject(Router);
+  readonly #route = inject(ActivatedRoute);
+  readonly #location = inject(Location);
+  readonly #destroyRef = inject(DestroyRef);
 
-  readonly documentTypes: DocumentTypeOption[] = [
-    { label: 'DNI', value: 'DNI' },
-    { label: 'CE', value: 'CE' },
-    { label: 'Passport', value: 'Passport' },
-  ];
-
-  readonly isEditMode = signal(false);
+  readonly documentTypes = DOCUMENT_TYPES;
+  readonly isEdit = signal(false);
   readonly loading = signal(false);
-  readonly submitting = signal(false);
+  readonly pageTitle = signal('New Patient');
+  readonly patientId = signal<number | null>(null);
 
   readonly form = this.#fb.nonNullable.group({
-    documentType: ['', Validators.required],
-    documentNumber: ['', Validators.required],
-    firstName: ['', Validators.required],
-    lastName: ['', Validators.required],
-    birthDate: this.#fb.nonNullable.control<Date | string>('', Validators.required),
-    phoneNumber: [''],
-    email: ['', Validators.email],
+    documentType: ['DNI', Validators.required],
+    documentNumber: ['', [Validators.required, Validators.maxLength(20)]],
+    firstName: ['', [Validators.required, Validators.maxLength(80)]],
+    lastName: ['', [Validators.required, Validators.maxLength(80)]],
+    birthDate: ['', Validators.required],
+    phoneNumber: ['', Validators.maxLength(20)],
+    email: ['', [Validators.email, Validators.maxLength(120)]],
   });
 
-  readonly title = signal('New Patient');
-  #patientId: number | null = null;
-
   constructor() {
-    const id = Number(this.#route.snapshot.paramMap.get('id'));
-
-    if (Number.isInteger(id) && id > 0) {
-      this.#patientId = id;
-      this.isEditMode.set(true);
-      this.title.set('Edit Patient');
-      this.#loadPatient(id);
+    const id = this.#route.snapshot.params['id'];
+    if (id) {
+      this.isEdit.set(true);
+      this.pageTitle.set('Edit Patient');
+      this.patientId.set(Number(id));
+      this.#loadPatient(Number(id));
     }
-  }
-
-  onSubmit(): void {
-    if (this.form.invalid || this.submitting()) {
-      this.form.markAllAsTouched();
-      return;
-    }
-
-    this.submitting.set(true);
-    const dto = this.#toDto(this.form.getRawValue());
-    const request$ = this.isEditMode()
-      ? this.#patientService.update(this.#patientId!, dto as UpdatePatientDto)
-      : this.#patientService.create(dto);
-
-    request$.pipe(takeUntilDestroyed(this.#destroyRef)).subscribe({
-      next: () => {
-        this.#messageService.add({
-          severity: 'success',
-          summary: 'Saved',
-          detail: `Patient ${this.isEditMode() ? 'updated' : 'created'} successfully.`,
-          life: 3000,
-        });
-        void this.#router.navigate(['/patients']);
-      },
-      error: (error: HttpErrorResponse) => {
-        this.submitting.set(false);
-        if (error.status === 409) {
-          this.form.controls.documentNumber.setErrors({ duplicate: true });
-        }
-      },
-    });
-  }
-
-  cancel(): void {
-    void this.#router.navigate(['/patients']);
-  }
-
-  hasError(controlName: keyof PatientFormValue, error: string): boolean {
-    const control = this.form.controls[controlName];
-    return control.hasError(error) && (control.dirty || control.touched);
   }
 
   #loadPatient(id: number): void {
     this.loading.set(true);
-    this.#patientService
-      .getById(id)
-      .pipe(takeUntilDestroyed(this.#destroyRef))
-      .subscribe({
-        next: ({ data }) => {
-          this.form.patchValue({
-            documentType: data.documentType,
-            documentNumber: data.documentNumber,
-            firstName: data.firstName,
-            lastName: data.lastName,
-            birthDate: this.#toDate(data.birthDate),
-            phoneNumber: data.phoneNumber ?? '',
-            email: data.email ?? '',
-          });
-          this.loading.set(false);
-        },
-        error: () => this.loading.set(false),
+    this.#patientService.getById(id).pipe(takeUntilDestroyed(this.#destroyRef)).subscribe({
+      next: (res: ApiResponse<Patient>) => {
+        const p = res.data;
+        this.form.patchValue({
+          documentType: p.documentType,
+          documentNumber: p.documentNumber,
+          firstName: p.firstName,
+          lastName: p.lastName,
+          birthDate: p.birthDate,
+          phoneNumber: p.phoneNumber ?? '',
+          email: p.email ?? '',
+        });
+        this.loading.set(false);
+      },
+      error: () => this.loading.set(false),
+    });
+  }
+
+  onSubmit(): void {
+    if (this.form.invalid) return;
+
+    this.loading.set(true);
+    const raw = this.form.getRawValue();
+
+    if (this.isEdit()) {
+      const dto: UpdatePatientDto = {
+        documentType: raw.documentType,
+        documentNumber: raw.documentNumber,
+        firstName: raw.firstName,
+        lastName: raw.lastName,
+        birthDate: raw.birthDate,
+        phoneNumber: raw.phoneNumber || undefined,
+        email: raw.email || undefined,
+      };
+      this.#patientService.update(this.patientId()!, dto).pipe(takeUntilDestroyed(this.#destroyRef)).subscribe({
+        next: () => this.#router.navigate(['/patients']),
+        error: (err: HttpErrorResponse) => this.#handleError(err),
       });
-  }
-
-  #toDto(value: PatientFormValue): CreatePatientDto {
-    return {
-      documentType: value.documentType.trim(),
-      documentNumber: value.documentNumber.trim(),
-      firstName: value.firstName.trim(),
-      lastName: value.lastName.trim(),
-      birthDate: this.#formatDate(value.birthDate),
-      phoneNumber: value.phoneNumber.trim() || undefined,
-      email: value.email.trim() || undefined,
-    };
-  }
-
-  #formatDate(value: Date | string): string {
-    if (value instanceof Date) {
-      return value.toISOString().slice(0, 10);
+    } else {
+      const dto: CreatePatientDto = {
+        documentType: raw.documentType,
+        documentNumber: raw.documentNumber,
+        firstName: raw.firstName,
+        lastName: raw.lastName,
+        birthDate: raw.birthDate,
+        phoneNumber: raw.phoneNumber || undefined,
+        email: raw.email || undefined,
+      };
+      this.#patientService.create(dto).pipe(takeUntilDestroyed(this.#destroyRef)).subscribe({
+        next: () => this.#router.navigate(['/patients']),
+        error: (err: HttpErrorResponse) => this.#handleError(err),
+      });
     }
-
-    return value;
   }
 
-  #toDate(value: string): Date | string {
-    const parsed = new Date(value);
-    return Number.isNaN(parsed.getTime()) ? value : parsed;
+  #handleError(err: HttpErrorResponse): void {
+    this.loading.set(false);
+    if (err.status === 409) {
+      this.form.controls.documentNumber.setErrors({ duplicate: true });
+    }
+  }
+
+  goBack(): void {
+    this.#location.back();
   }
 }

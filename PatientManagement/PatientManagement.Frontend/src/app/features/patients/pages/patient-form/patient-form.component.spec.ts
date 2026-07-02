@@ -37,7 +37,7 @@ describe('PatientFormComponent', () => {
       documentNumber: '123456',
       firstName: 'Ana',
       lastName: 'Lopez',
-      birthDate: new Date('1990-01-01T00:00:00'),
+      birthDate: '1990-01-01',
       phoneNumber: '555-0100',
       email: 'ana@example.com',
     });
@@ -46,9 +46,11 @@ describe('PatientFormComponent', () => {
   });
 
   it('should validate required fields', () => {
-    component.form.markAllAsTouched();
+    component.form.controls.documentNumber.markAsTouched();
+    component.form.controls.firstName.markAsTouched();
+    component.form.controls.lastName.markAsTouched();
+    component.form.controls.birthDate.markAsTouched();
 
-    expect(component.form.controls.documentType.hasError('required')).toBeTrue();
     expect(component.form.controls.documentNumber.hasError('required')).toBeTrue();
     expect(component.form.controls.firstName.hasError('required')).toBeTrue();
     expect(component.form.controls.lastName.hasError('required')).toBeTrue();

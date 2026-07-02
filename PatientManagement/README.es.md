@@ -1,6 +1,6 @@
-# Patient Management API
+# Patient Management
 
-API RESTful para la gestión de pacientes construida con **.NET 9** siguiendo los principios de **Arquitectura Limpia (Clean Architecture)**.
+Aplicación full-stack para la gestión de pacientes con un backend **.NET 9** siguiendo **Clean Architecture** y un frontend **Angular 22** con **PrimeNG**.
 
 > **English:** [README.md](README.md)
 
@@ -30,11 +30,15 @@ API RESTful para la gestión de pacientes construida con **.NET 9** siguiendo lo
 
 ## Descripción General
 
-**Patient Management API** es un servicio backend que proporciona una interfaz CRUD completa para la gestión de registros de pacientes. Fue diseñado como el backend de un Sistema de Gestión de Pacientes, destinado a ser consumido por un frontend Angular.
+**Patient Management** es una aplicación full-stack que proporciona una interfaz CRUD completa para la gestión de registros de pacientes. Está compuesta por:
 
-La API almacena información de pacientes, incluyendo identificación personal (tipo y número de documento), nombre completo, fecha de nacimiento y datos de contacto opcionales (teléfono y correo electrónico). Garantiza la integridad de los datos mediante una restricción única sobre el tipo y número de documento, evitando registros duplicados.
+- **Backend**: Una API RESTful .NET 9 siguiendo Clean Architecture con 46 pruebas unitarias
+- **Frontend**: Una SPA Angular 22 con componentes PrimeNG, carga diferida y diseño responsive
+- **Base de Datos**: SQL Server con 11 scripts SQL que cubren tablas, índices, procedimientos almacenados, funciones y consultas de ejemplo
 
-La solución sigue la Arquitectura Limpia con cuatro capas — Domain, Application, Infrastructure y API — e incluye 46 pruebas unitarias que cubren la capa de servicios, la capa de controladores y los validadores de entrada.
+La aplicación almacena información de pacientes, incluyendo identificación personal (tipo y número de documento), nombre completo, fecha de nacimiento y datos de contacto opcionales (teléfono y correo electrónico). Garantiza la integridad de los datos mediante una restricción única sobre el tipo y número de documento, evitando registros duplicados.
+
+El backend sigue la Arquitectura Limpia con cuatro capas — Domain, Application, Infrastructure y API — e incluye 46 pruebas unitarias. El frontend utiliza componentes standalone, detección de cambios OnPush, y una arquitectura basada en funcionalidades con rutas de carga diferida.
 
 ---
 
@@ -120,61 +124,55 @@ PatientManagement/
 │   ├── 002_CreatePatientsTable.sql
 │   ├── 003_CreateIndexes.sql
 │   ├── 004_StoredProcedures.sql
-│   └── 005_TestData.sql
+│   ├── 005_TestData.sql
+│   ├── 006_CreateDoctorsTable.sql          (*)
+│   ├── 007_CreateAppointmentsTable.sql     (*)
+│   ├── 008_QueryExamples.sql               (*)
+│   ├── 009_AdditionalStoredProcedures.sql   (*)
+│   ├── 010_Functions.sql                   (*)
+│   └── 011_AdditionalIndexes.sql           (*)
 ├── PatientManagement.Domain/
-│   ├── PatientManagement.Domain.csproj
-│   └── Entities/
-│       └── Patient.cs
+│   └── ...
 ├── PatientManagement.Application/
-│   ├── PatientManagement.Application.csproj
-│   ├── Common/
-│   │   └── ApiResponse.cs
-│   ├── DTOs/
-│   │   ├── CreatePatientDto.cs
-│   │   ├── UpdatePatientDto.cs
-│   │   ├── PatientDto.cs
-│   │   ├── PatientListDto.cs
-│   │   ├── PatientFilterDto.cs
-│   │   └── PagedResult.cs
-│   ├── Exceptions/
-│   │   ├── NotFoundException.cs
-│   │   └── DuplicatePatientException.cs
-│   ├── Interfaces/
-│   │   ├── IPatientService.cs
-│   │   └── IPatientRepository.cs
-│   ├── Mapping/
-│   │   └── PatientProfile.cs
-│   ├── Services/
-│   │   └── PatientService.cs
-│   └── Validators/
-│       ├── CreatePatientValidator.cs
-│       └── UpdatePatientValidator.cs
+│   └── ...
 ├── PatientManagement.Infrastructure/
-│   ├── PatientManagement.Infrastructure.csproj
-│   ├── Data/
-│   │   ├── ApplicationDbContext.cs
-│   │   └── Configurations/
-│   │       └── PatientConfiguration.cs
-│   ├── Migrations/
-│   │   ├── 20260702030104_InitialCreate.cs
-│   │   └── ApplicationDbContextModelSnapshot.cs
-│   ├── Repositories/
-│   │   └── PatientRepository.cs
-│   └── DependencyInjection.cs
+│   └── ...
 ├── PatientManagement.API/
-│   ├── PatientManagement.API.csproj
-│   ├── Program.cs
-│   ├── appsettings.json
-│   ├── Controllers/
-│   │   └── PatientsController.cs
-│   └── Middleware/
-│       └── ExceptionMiddleware.cs
-└── PatientManagement.Tests/
-    ├── PatientManagement.Tests.csproj
-    ├── PatientServiceTests.cs
-    ├── PatientsControllerTests.cs
-    ├── CreatePatientValidatorTests.cs
-    └── UpdatePatientValidatorTests.cs
+│   └── ...
+├── PatientManagement.Tests/
+│   └── ...
+└── PatientManagement.Frontend/             (*)
+    ├── README.md
+    ├── README.es.md                         (*)
+    ├── angular.json
+    ├── karma.conf.js                        (*)
+    ├── package.json
+    └── src/
+        ├── app/
+        │   ├── app.config.ts
+        │   ├── app.routes.ts
+        │   ├── core/
+        │   │   ├── interceptors/
+        │   │   │   └── error-handler.interceptor.ts
+        │   │   └── layout/
+        │   │       └── layout.component.ts
+        │   ├── features/
+        │   │   └── patients/
+        │   │       ├── patients.routes.ts
+        │   │       └── pages/
+        │   │           ├── patient-list/
+        │   │           ├── patient-form/
+        │   │           └── patient-detail/
+        │   ├── models/
+        │   │   └── patient.ts
+        │   └── services/
+        │       └── patient.service.ts
+        ├── environments/
+        ├── index.html
+        ├── main.ts
+        └── styles.css
+
+  (*) Agregado en esta fase
 ```
 
 ---
@@ -419,12 +417,18 @@ Definida en `PatientManagement.Domain.Entities.Patient`:
 Ubicados en el directorio `sql/` para configuración manual de la base de datos sin depender de migraciones de EF Core:
 
 | Script | Propósito |
-|---|---|
+|---|---|---|
 | `001_CreateDatabase.sql` | Crea la base de datos `PatientManagementDb` |
 | `002_CreatePatientsTable.sql` | Crea la tabla `Patients` con todas las columnas y restricciones |
 | `003_CreateIndexes.sql` | Crea el índice único `UIX_Patients_DocumentType_DocumentNumber` |
 | `004_StoredProcedures.sql` | Crea `usp_GetPatientsCreatedAfterDate` |
 | `005_TestData.sql` | Inserta 10 registros de pacientes de ejemplo para desarrollo/pruebas |
+| `006_CreateDoctorsTable.sql` | Crea la tabla `Doctors` con especialidades y datos de contacto + datos de ejemplo |
+| `007_CreateAppointmentsTable.sql` | Crea la tabla `Appointments` vinculada a Patients y Doctors + 20 citas de ejemplo |
+| `008_QueryExamples.sql` | Cinco consultas analíticas: top pacientes, médicos sin citas, facturación, multi-especialidad, pacientes recientes |
+| `009_AdditionalStoredProcedures.sql` | Agrega `usp_GetDoctorAppointmentsSummary`, `usp_GetPatientAppointmentHistory`, `usp_GetMultiSpecialtyPatients` |
+| `010_Functions.sql` | Crea `fn_CalculateAge` para calcular la edad desde la fecha de nacimiento |
+| `011_AdditionalIndexes.sql` | Cinco índices con justificación documentada para optimizar consultas analíticas |
 
 Ejecutar en orden numérico usando SQL Server Management Studio, `sqlcmd` o cualquier cliente SQL.
 
@@ -517,11 +521,76 @@ Ambos comandos producen un resumen de pruebas pasadas, fallidas y omitidas.
 
 ---
 
+## Frontend (Angular)
+
+El frontend está construido con **Angular 22** y **PrimeNG 22 RC**, siguiendo una arquitectura basada en funcionalidades con componentes standalone y rutas de carga diferida.
+
+> Para documentación completa del frontend, ver [PatientManagement.Frontend/README.md](PatientManagement.Frontend/README.md) (English) y [README.es.md](PatientManagement.Frontend/README.es.md) (Español).
+
+### Tecnologías
+
+| Tecnología | Versión | Propósito |
+|---|---|---|
+| Angular | 22.0.5 | Framework web (componentes standalone) |
+| PrimeNG | 22.0.0-rc.1 | Librería de componentes UI (tema Aura) |
+| PrimeIcons | 7.0.0 | Librería de iconos |
+| RxJS | 7.8.0 | Flujos de datos reactivos |
+| Karma | 6.4.4 | Ejecutor de pruebas |
+| Jasmine | 6.3.0 | Framework de pruebas unitarias |
+
+### Funcionalidades
+
+- **CRUD de Pacientes** — Crear, leer, actualizar y eliminar registros de pacientes
+- **Paginación del lado del servidor** — Lista paginada con tamaño de página configurable
+- **Búsqueda y Filtrado** — Búsqueda con debounce por nombre y número de documento
+- **Vista de Detalle** — Tarjeta de solo lectura con toda la información del paciente
+- **Modo Edición** — Formulario reutilizable para crear y editar pacientes
+- **Eliminación con Confirmación** — Diálogo de confirmación antes de eliminar
+- **Exportación CSV** — Exportación con un clic de la lista actual a CSV
+- **Detección de Duplicados** — Manejo de error HTTP 409 para documentos duplicados
+- **Manejo Global de Errores** — Notificaciones Toast para errores HTTP via interceptor
+- **Estados de Carga** — Placeholders Skeleton durante la carga de datos
+- **Estado Vacío** — Estado vacío profesional con icono y mensaje informativo
+- **Diseño Responsive** — Layout adaptable para dispositivos móviles
+- **Accesibilidad** — ARIA labels, titles, atributos autocomplete
+
+### Aspectos Destacados de la Arquitectura
+
+- **Componentes standalone** — Sin NgModules, imports explícitos
+- **Carga diferida** — Funcionalidad de pacientes cargada bajo demanda
+- **OnPush change detection** — Ciclos de detección de cambios mínimos
+- **`inject()` DI** — Patrón de inyección de dependencias funcional
+- **`takeUntilDestroyed()`** — Gestión automática de suscripciones
+- **Signals** — Usados selectivamente para estados de carga, filtros y valores derivados
+- **Interceptor HTTP** — Interceptor funcional para manejo global de errores
+
+### Pruebas
+
+14 pruebas unitarias usando **Jasmine + Karma**:
+
+| Objetivo de Prueba | Pruebas | Cobertura |
+|---|---|---|
+| `PatientService` | 5 | getAll, getById, create, update, delete |
+| `PatientListComponent` | 4 | Carga de datos, renderizado de tabla, filtros, eliminación |
+| `PatientFormComponent` | 4 | Formulario inválido, formulario válido, validaciones requeridas, formato email |
+| `AppComponent` | 1 | Creación del componente |
+
+### Ejecutar el Frontend
+
+```bash
+cd PatientManagement.Frontend
+npm install
+npm start       # http://localhost:4200
+npm run build   # Compilación de producción
+npm test        # Pruebas unitarias (Jasmine + Karma)
+```
+
 ## Ejecución del Proyecto
 
 ### Requisitos Previos
 
 - [.NET 9 SDK](https://dotnet.microsoft.com/download/dotnet/9.0)
+- [Node.js 22+](https://nodejs.org/) (para el frontend)
 - SQL Server (LocalDB, Express, Developer Edition o cualquier edición)
 - (Opcional) [SQL Server Management Studio](https://learn.microsoft.com/sql/ssms/) o cualquier cliente SQL
 
@@ -544,6 +613,12 @@ sqlcmd -S localhost -i sql\002_CreatePatientsTable.sql
 sqlcmd -S localhost -i sql\003_CreateIndexes.sql
 sqlcmd -S localhost -i sql\004_StoredProcedures.sql
 sqlcmd -S localhost -i sql\005_TestData.sql
+sqlcmd -S localhost -i sql\006_CreateDoctorsTable.sql
+sqlcmd -S localhost -i sql\007_CreateAppointmentsTable.sql
+sqlcmd -S localhost -i sql\008_QueryExamples.sql
+sqlcmd -S localhost -i sql\009_AdditionalStoredProcedures.sql
+sqlcmd -S localhost -i sql\010_Functions.sql
+sqlcmd -S localhost -i sql\011_AdditionalIndexes.sql
 ```
 
 **Opción B — Usando Migraciones de EF Core:**

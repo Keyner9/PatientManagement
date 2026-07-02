@@ -1,6 +1,6 @@
-# Patient Management API
+# Patient Management
 
-A RESTful API for patient management built with **.NET 9** following **Clean Architecture** principles.
+Full-stack patient management application with a **.NET 9** backend following **Clean Architecture** and an **Angular 22** frontend using **PrimeNG**.
 
 > **Español:** [README.es.md](README.es.md)
 
@@ -30,11 +30,15 @@ A RESTful API for patient management built with **.NET 9** following **Clean Arc
 
 ## Project Overview
 
-**Patient Management API** is a backend service that provides a complete CRUD interface for managing patient records. It was designed as the backend for a Patient Management System, intended to be consumed by an Angular frontend.
+**Patient Management** is a full-stack application that provides a complete CRUD interface for managing patient records. It consists of:
 
-The API stores patient information including personal identification (document type and number), full name, birth date, and optional contact details (phone and email). It enforces data integrity through a unique constraint on document type and number, ensuring no duplicate patient records.
+- **Backend**: A .NET 9 RESTful API following Clean Architecture with 46 unit tests
+- **Frontend**: An Angular 22 SPA with PrimeNG components, lazy loading, and responsive design
+- **Database**: SQL Server with 11 SQL scripts covering tables, indexes, stored procedures, functions, and example queries
 
-The solution follows Clean Architecture with four layers — Domain, Application, Infrastructure, and API — and includes 46 unit tests covering the service layer, controller layer, and input validators.
+The application stores patient information including personal identification (document type and number), full name, birth date, and optional contact details (phone and email). It enforces data integrity through a unique constraint on document type and number, ensuring no duplicate patient records.
+
+The backend follows Clean Architecture with four layers — Domain, Application, Infrastructure, and API — and includes 46 unit tests. The frontend uses standalone components, OnPush change detection, and a feature-based architecture with lazy-loaded routes.
 
 ---
 
@@ -120,61 +124,55 @@ PatientManagement/
 │   ├── 002_CreatePatientsTable.sql
 │   ├── 003_CreateIndexes.sql
 │   ├── 004_StoredProcedures.sql
-│   └── 005_TestData.sql
+│   ├── 005_TestData.sql
+│   ├── 006_CreateDoctorsTable.sql          (*)
+│   ├── 007_CreateAppointmentsTable.sql     (*)
+│   ├── 008_QueryExamples.sql               (*)
+│   ├── 009_AdditionalStoredProcedures.sql   (*)
+│   ├── 010_Functions.sql                   (*)
+│   └── 011_AdditionalIndexes.sql           (*)
 ├── PatientManagement.Domain/
-│   ├── PatientManagement.Domain.csproj
-│   └── Entities/
-│       └── Patient.cs
+│   └── ...
 ├── PatientManagement.Application/
-│   ├── PatientManagement.Application.csproj
-│   ├── Common/
-│   │   └── ApiResponse.cs
-│   ├── DTOs/
-│   │   ├── CreatePatientDto.cs
-│   │   ├── UpdatePatientDto.cs
-│   │   ├── PatientDto.cs
-│   │   ├── PatientListDto.cs
-│   │   ├── PatientFilterDto.cs
-│   │   └── PagedResult.cs
-│   ├── Exceptions/
-│   │   ├── NotFoundException.cs
-│   │   └── DuplicatePatientException.cs
-│   ├── Interfaces/
-│   │   ├── IPatientService.cs
-│   │   └── IPatientRepository.cs
-│   ├── Mapping/
-│   │   └── PatientProfile.cs
-│   ├── Services/
-│   │   └── PatientService.cs
-│   └── Validators/
-│       ├── CreatePatientValidator.cs
-│       └── UpdatePatientValidator.cs
+│   └── ...
 ├── PatientManagement.Infrastructure/
-│   ├── PatientManagement.Infrastructure.csproj
-│   ├── Data/
-│   │   ├── ApplicationDbContext.cs
-│   │   └── Configurations/
-│   │       └── PatientConfiguration.cs
-│   ├── Migrations/
-│   │   ├── 20260702030104_InitialCreate.cs
-│   │   └── ApplicationDbContextModelSnapshot.cs
-│   ├── Repositories/
-│   │   └── PatientRepository.cs
-│   └── DependencyInjection.cs
+│   └── ...
 ├── PatientManagement.API/
-│   ├── PatientManagement.API.csproj
-│   ├── Program.cs
-│   ├── appsettings.json
-│   ├── Controllers/
-│   │   └── PatientsController.cs
-│   └── Middleware/
-│       └── ExceptionMiddleware.cs
-└── PatientManagement.Tests/
-    ├── PatientManagement.Tests.csproj
-    ├── PatientServiceTests.cs
-    ├── PatientsControllerTests.cs
-    ├── CreatePatientValidatorTests.cs
-    └── UpdatePatientValidatorTests.cs
+│   └── ...
+├── PatientManagement.Tests/
+│   └── ...
+└── PatientManagement.Frontend/             (*)
+    ├── README.md
+    ├── README.es.md                         (*)
+    ├── angular.json
+    ├── karma.conf.js                        (*)
+    ├── package.json
+    └── src/
+        ├── app/
+        │   ├── app.config.ts
+        │   ├── app.routes.ts
+        │   ├── core/
+        │   │   ├── interceptors/
+        │   │   │   └── error-handler.interceptor.ts
+        │   │   └── layout/
+        │   │       └── layout.component.ts
+        │   ├── features/
+        │   │   └── patients/
+        │   │       ├── patients.routes.ts
+        │   │       └── pages/
+        │   │           ├── patient-list/
+        │   │           ├── patient-form/
+        │   │           └── patient-detail/
+        │   ├── models/
+        │   │   └── patient.ts
+        │   └── services/
+        │       └── patient.service.ts
+        ├── environments/
+        ├── index.html
+        ├── main.ts
+        └── styles.css
+
+  (*) Added in this phase
 ```
 
 ---
@@ -419,12 +417,18 @@ Defined in `PatientManagement.Domain.Entities.Patient`:
 Located in the `sql/` directory for manual database setup without relying on EF Core migrations:
 
 | Script | Purpose |
-|---|---|
+|---|---|---|
 | `001_CreateDatabase.sql` | Creates the `PatientManagementDb` database |
 | `002_CreatePatientsTable.sql` | Creates the `Patients` table with all columns and constraints |
 | `003_CreateIndexes.sql` | Creates the unique index `UIX_Patients_DocumentType_DocumentNumber` |
 | `004_StoredProcedures.sql` | Creates `usp_GetPatientsCreatedAfterDate` |
 | `005_TestData.sql` | Inserts 10 sample patient records for development/testing |
+| `006_CreateDoctorsTable.sql` | Creates the `Doctors` table with specialties and contact info + seed data |
+| `007_CreateAppointmentsTable.sql` | Creates the `Appointments` table linked to Patients and Doctors + 20 sample appointments |
+| `008_QueryExamples.sql` | Five analytical queries: top patients, doctors without appointments, billing by doctor, multi-specialty patients, recent patients |
+| `009_AdditionalStoredProcedures.sql` | Adds `usp_GetDoctorAppointmentsSummary`, `usp_GetPatientAppointmentHistory`, `usp_GetMultiSpecialtyPatients` |
+| `010_Functions.sql` | Creates `fn_CalculateAge` to compute age from birth date |
+| `011_AdditionalIndexes.sql` | Five indexes with documented rationale for optimizing analytical queries |
 
 Execute in numeric order using SQL Server Management Studio, `sqlcmd`, or any SQL client.
 
@@ -517,11 +521,76 @@ Both commands produce a summary of passed, failed, and skipped tests.
 
 ---
 
+## Frontend (Angular)
+
+The frontend is built with **Angular 22** and **PrimeNG 22 RC**, following a feature-based architecture with standalone components and lazy-loaded routes.
+
+> For full frontend documentation, see [PatientManagement.Frontend/README.md](PatientManagement.Frontend/README.md) (English) and [README.es.md](PatientManagement.Frontend/README.es.md) (Español).
+
+### Technology Stack
+
+| Technology | Version | Purpose |
+|---|---|---|
+| Angular | 22.0.5 | Web framework (standalone components) |
+| PrimeNG | 22.0.0-rc.1 | UI component library (Aura theme) |
+| PrimeIcons | 7.0.0 | Icon library |
+| RxJS | 7.8.0 | Reactive data streams |
+| Karma | 6.4.4 | Test runner |
+| Jasmine | 6.3.0 | Unit testing framework |
+
+### Features
+
+- **Patient CRUD** — Create, read, update, and delete patient records
+- **Server-side Pagination** — Paginated patient list with configurable page size
+- **Search & Filtering** — Debounced search by name and document number
+- **Patient Detail View** — Read-only card displaying all patient information
+- **Edit Mode** — Reusable form for both creating and editing patients
+- **Delete with Confirmation** — Confirmation dialog before deleting
+- **CSV Export** — One-click export of the current patient list to CSV
+- **Duplicate Detection** — Inline error handling for duplicate document numbers (HTTP 409)
+- **Global Error Handling** — Toast notifications for all HTTP errors via interceptor
+- **Loading States** — Skeleton placeholders during data loading
+- **Empty State** — Professional empty state with icon and helpful message
+- **Responsive Design** — Mobile-first responsive layout
+- **Accessibility** — ARIA labels, titles, proper autocomplete attributes
+
+### Architecture Highlights
+
+- **Standalone components** — No NgModules, explicit imports
+- **Lazy loading** — Patient feature loaded on demand via `patients.routes.ts`
+- **OnPush change detection** — Minimal change detection cycles
+- **`inject()` DI** — Functional dependency injection pattern
+- **`takeUntilDestroyed()`** — Automatic subscription management
+- **Signals** — Used selectively for loading, filter state, and derived values
+- **HTTP interceptor** — Functional interceptor for global error handling
+
+### Testing
+
+14 unit tests using **Jasmine + Karma**:
+
+| Test Target | Tests | Coverage |
+|---|---|---|
+| `PatientService` | 5 | getAll, getById, create, update, delete |
+| `PatientListComponent` | 4 | Data loading, table rendering, filters, delete |
+| `PatientFormComponent` | 4 | Invalid form, valid form, required validations, email format |
+| `AppComponent` | 1 | Component creation |
+
+### Running the Frontend
+
+```bash
+cd PatientManagement.Frontend
+npm install
+npm start       # http://localhost:4200
+npm run build   # Production build
+npm test        # Unit tests (Jasmine + Karma)
+```
+
 ## Running the Project
 
 ### Prerequisites
 
 - [.NET 9 SDK](https://dotnet.microsoft.com/download/dotnet/9.0)
+- [Node.js 22+](https://nodejs.org/) (for the frontend)
 - SQL Server (LocalDB, Express, Developer Edition, or any edition)
 - (Optional) [SQL Server Management Studio](https://learn.microsoft.com/sql/ssms/) or any SQL client
 
@@ -544,6 +613,12 @@ sqlcmd -S localhost -i sql\002_CreatePatientsTable.sql
 sqlcmd -S localhost -i sql\003_CreateIndexes.sql
 sqlcmd -S localhost -i sql\004_StoredProcedures.sql
 sqlcmd -S localhost -i sql\005_TestData.sql
+sqlcmd -S localhost -i sql\006_CreateDoctorsTable.sql
+sqlcmd -S localhost -i sql\007_CreateAppointmentsTable.sql
+sqlcmd -S localhost -i sql\008_QueryExamples.sql
+sqlcmd -S localhost -i sql\009_AdditionalStoredProcedures.sql
+sqlcmd -S localhost -i sql\010_Functions.sql
+sqlcmd -S localhost -i sql\011_AdditionalIndexes.sql
 ```
 
 **Option B — Using EF Core Migrations:**

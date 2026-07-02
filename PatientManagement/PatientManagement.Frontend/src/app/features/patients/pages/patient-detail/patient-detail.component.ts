@@ -1,38 +1,48 @@
-import { AsyncPipe, DatePipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { catchError, map, Observable, of, shareReplay, switchMap } from 'rxjs';
-import { ButtonModule } from 'primeng/button';
+import { ChangeDetectionStrategy, Component, DestroyRef, inject, signal } from '@angular/core';
+import { ActivatedRoute, RouterLink } from '@angular/router';
+import { DatePipe, Location } from '@angular/common';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { CardModule } from 'primeng/card';
+import { ButtonModule } from 'primeng/button';
 import { SkeletonModule } from 'primeng/skeleton';
-import { Patient } from '../../../../models/patient';
 import { PatientService } from '../../../../services/patient.service';
+import { ApiResponse, Patient } from '../../../../models/patient';
 
 @Component({
   selector: 'app-patient-detail',
-  imports: [AsyncPipe, DatePipe, RouterLink, ButtonModule, CardModule, SkeletonModule],
+  imports: [RouterLink, DatePipe, CardModule, ButtonModule, SkeletonModule],
   templateUrl: './patient-detail.component.html',
   styleUrl: './patient-detail.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PatientDetailComponent {
-  readonly #route = inject(ActivatedRoute);
-  readonly #router = inject(Router);
   readonly #patientService = inject(PatientService);
+  readonly #route = inject(ActivatedRoute);
+  readonly #location = inject(Location);
+  readonly #destroyRef = inject(DestroyRef);
 
-  readonly patient$: Observable<Patient | null> = this.#route.paramMap.pipe(
-    map((params) => Number(params.get('id'))),
-    switchMap((id) => {
-      if (!Number.isInteger(id) || id <= 0) {
-        void this.#router.navigate(['/patients']);
-        return of(null);
-      }
+  readonly loading = signal(true);
+  readonly patient = signal<Patient | null>(null);
 
-      return this.#patientService.getById(id).pipe(
-        map((response) => response.data),
-        catchError(() => of(null)),
-      );
-    }),
-    shareReplay({ bufferSize: 1, refCount: true }),
-  );
+  constructor() {
+    const id = Number(this.#route.snapshot.params['id']);
+    if (id) {
+      this.#loadPatient(id);
+    }
+  }
+
+  #loadPatient(id: number): void {
+    this.loading.set(true);
+    this.#patientService.getById(id).pipe(takeUntilDestroyed(this.#destroyRef)).subscribe({
+      next: (res: ApiResponse<Patient>) => {
+        this.patient.set(res.data);
+        this.loading.set(false);
+      },
+      error: () => this.loading.set(false),
+    });
+  }
+
+  goBack(): void {
+    this.#location.back();
+  }
 }
