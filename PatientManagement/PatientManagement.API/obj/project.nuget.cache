@@ -1,11 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "oF4slVo7VaM=",
+  "dgSpecHash": "GgqNEWshkMI=",
   "success": true,
-  "projectFilePath": "C:\\Mac\\Home\\Documents\\Keyner\\PruebaTecnica\\PatientManagement\\PatientManagement.API\\PatientManagement.API.csproj",
+  "projectFilePath": "/Users/jamessarmiento/Documents/Keyner/PruebaTecnica/PatientManagement/PatientManagement.API/PatientManagement.API.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\jamessarmiento\\.nuget\\packages\\microsoft.aspnetcore.openapi\\9.0.17\\microsoft.aspnetcore.openapi.9.0.17.nupkg.sha512",
-    "C:\\Users\\jamessarmiento\\.nuget\\packages\\microsoft.openapi\\1.6.17\\microsoft.openapi.1.6.17.nupkg.sha512"
+    "/Users/jamessarmiento/.nuget/packages/microsoft.aspnetcore.openapi/9.0.17/microsoft.aspnetcore.openapi.9.0.17.nupkg.sha512",
+    "/Users/jamessarmiento/.nuget/packages/microsoft.openapi/1.6.17/microsoft.openapi.1.6.17.nupkg.sha512"
   ],
   "logs": []
 }
