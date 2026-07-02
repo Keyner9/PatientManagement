@@ -44,4 +44,11 @@ public class PatientsController : ControllerBase
         var response = await _patientService.UpdateAsync(id, dto, cancellationToken);
         return Ok(response);
     }
+
+    [HttpDelete("{id:int}")]
+    public async Task<IActionResult> DeleteAsync([FromRoute] int id, CancellationToken cancellationToken)
+    {
+        await _patientService.DeleteAsync(id, cancellationToken);
+        return NoContent();
+    }
 }
