@@ -1,0 +1,51 @@
+@if (patient$ | async; as patient) {
+  <p-card header="Patient Details">
+    <div class="detail-toolbar">
+      <button pButton label="Back" icon="pi pi-arrow-left" severity="secondary" class="p-button-text" routerLink="/patients"></button>
+      <button pButton label="Edit" icon="pi pi-pencil" [routerLink]="['/patients', patient.patientId, 'edit']"></button>
+    </div>
+
+    <div class="detail-grid">
+      <div class="detail-item">
+        <span class="detail-label">Document Type</span>
+        <span class="detail-value">{{ patient.documentType }}</span>
+      </div>
+      <div class="detail-item">
+        <span class="detail-label">Document Number</span>
+        <span class="detail-value">{{ patient.documentNumber }}</span>
+      </div>
+      <div class="detail-item">
+        <span class="detail-label">First Name</span>
+        <span class="detail-value">{{ patient.firstName }}</span>
+      </div>
+      <div class="detail-item">
+        <span class="detail-label">Last Name</span>
+        <span class="detail-value">{{ patient.lastName }}</span>
+      </div>
+      <div class="detail-item">
+        <span class="detail-label">Birth Date</span>
+        <span class="detail-value">{{ patient.birthDate | date: 'mediumDate' }}</span>
+      </div>
+      <div class="detail-item">
+        <span class="detail-label">Phone Number</span>
+        <span class="detail-value">{{ patient.phoneNumber || '-' }}</span>
+      </div>
+      <div class="detail-item">
+        <span class="detail-label">Email</span>
+        <span class="detail-value">{{ patient.email || '-' }}</span>
+      </div>
+      <div class="detail-item">
+        <span class="detail-label">Created At</span>
+        <span class="detail-value">{{ patient.createdAt | date: 'medium' }}</span>
+      </div>
+    </div>
+  </p-card>
+} @else {
+  <p-card header="Patient Details">
+    <div class="detail-skeleton" aria-label="Loading patient details">
+      @for (item of [1, 2, 3, 4, 5, 6]; track item) {
+        <p-skeleton height="3rem" borderRadius="8px" />
+      }
+    </div>
+  </p-card>
+}

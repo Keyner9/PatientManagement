@@ -1,0 +1,16 @@
+<p-toast />
+
+<div class="layout-wrapper">
+  <p-toolbar>
+    <ng-template pTemplate="start">
+      <span class="toolbar-title">Patient Management</span>
+    </ng-template>
+    <ng-template pTemplate="end">
+      <button pButton icon="pi pi-users" label="Patients" routerLink="/patients" aria-label="Go to patients"></button>
+    </ng-template>
+  </p-toolbar>
+
+  <div class="layout-content">
+    <router-outlet />
+  </div>
+</div>

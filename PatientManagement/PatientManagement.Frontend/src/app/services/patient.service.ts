@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../environments/environment';
@@ -6,9 +6,8 @@ import { Patient, PatientFilter, PagedResult, CreatePatientDto, UpdatePatientDto
 
 @Injectable({ providedIn: 'root' })
 export class PatientService {
+  private readonly http = inject(HttpClient);
   private readonly apiUrl = `${environment.apiUrl}/patients`;
-
-  constructor(private http: HttpClient) {}
 
   getAll(filter: PatientFilter): Observable<ApiResponse<PagedResult<Patient>>> {
     const params = new URLSearchParams();

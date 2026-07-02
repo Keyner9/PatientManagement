@@ -1,0 +1,74 @@
+<p-card [header]="title()">
+  @if (loading()) {
+    <div class="form-skeleton" aria-label="Loading patient form">
+      @for (item of [1, 2, 3, 4, 5, 6]; track item) {
+        <p-skeleton height="3rem" borderRadius="8px" />
+      }
+    </div>
+  } @else {
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="patient-form" novalidate>
+      <div class="form-grid">
+        <div class="field">
+          <label for="documentType">Document Type</label>
+          <p-select inputId="documentType" formControlName="documentType" [options]="documentTypes" optionLabel="label" optionValue="value" placeholder="Select type" ariaLabel="Document type" />
+          @if (hasError('documentType', 'required')) {
+            <small class="p-error">Document type is required.</small>
+          }
+        </div>
+
+        <div class="field">
+          <label for="documentNumber">Document Number</label>
+          <input id="documentNumber" pInputText formControlName="documentNumber" autocomplete="off" />
+          @if (hasError('documentNumber', 'required')) {
+            <small class="p-error">Document number is required.</small>
+          }
+          @if (form.controls.documentNumber.hasError('duplicate')) {
+            <small class="p-error">A patient with this document already exists.</small>
+          }
+        </div>
+
+        <div class="field">
+          <label for="firstName">First Name</label>
+          <input id="firstName" pInputText formControlName="firstName" autocomplete="given-name" />
+          @if (hasError('firstName', 'required')) {
+            <small class="p-error">First name is required.</small>
+          }
+        </div>
+
+        <div class="field">
+          <label for="lastName">Last Name</label>
+          <input id="lastName" pInputText formControlName="lastName" autocomplete="family-name" />
+          @if (hasError('lastName', 'required')) {
+            <small class="p-error">Last name is required.</small>
+          }
+        </div>
+
+        <div class="field">
+          <label for="birthDate">Birth Date</label>
+          <p-datepicker inputId="birthDate" formControlName="birthDate" dateFormat="yy-mm-dd" [showIcon]="true" appendTo="body" ariaLabel="Birth date" />
+          @if (hasError('birthDate', 'required')) {
+            <small class="p-error">Birth date is required.</small>
+          }
+        </div>
+
+        <div class="field">
+          <label for="phoneNumber">Phone Number</label>
+          <input id="phoneNumber" pInputText formControlName="phoneNumber" autocomplete="tel" />
+        </div>
+
+        <div class="field field-wide">
+          <label for="email">Email</label>
+          <input id="email" pInputText formControlName="email" type="email" autocomplete="email" />
+          @if (hasError('email', 'email')) {
+            <small class="p-error">Enter a valid email address.</small>
+          }
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button pButton type="button" label="Cancel" severity="secondary" class="p-button-text" (click)="cancel()" [disabled]="submitting()"></button>
+        <button pButton type="submit" label="Save" icon="pi pi-save" [loading]="submitting()" [disabled]="form.invalid || submitting()"></button>
+      </div>
+    </form>
+  }
+</p-card>
