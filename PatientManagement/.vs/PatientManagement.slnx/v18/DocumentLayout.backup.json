@@ -9,10 +9,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{4B1F5923-F5F5-4A96-B1B0-3060FA8D3EFF}|PatientManagement.Infrastructure\\PatientManagement.Infrastructure.csproj|c:\\mac\\home\\documents\\keyner\\pruebatecnica\\patientmanagement\\patientmanagement.infrastructure\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{4B1F5923-F5F5-4A96-B1B0-3060FA8D3EFF}|PatientManagement.Infrastructure\\PatientManagement.Infrastructure.csproj|solutionrelative:patientmanagement.infrastructure\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{17791A98-298B-436D-9F77-A438B6859B27}|PatientManagement.Application\\PatientManagement.Application.csproj|c:\\mac\\home\\documents\\keyner\\pruebatecnica\\patientmanagement\\patientmanagement.application\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{17791A98-298B-436D-9F77-A438B6859B27}|PatientManagement.Application\\PatientManagement.Application.csproj|solutionrelative:patientmanagement.application\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -48,19 +44,6 @@
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-07-01T23:45:41.655Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Class1.cs",
-              "DocumentMoniker": "C:\\Mac\\Home\\Documents\\Keyner\\PruebaTecnica\\PatientManagement\\PatientManagement.Application\\Class1.cs",
-              "RelativeDocumentMoniker": "PatientManagement.Application\\Class1.cs",
-              "ToolTip": "C:\\Mac\\Home\\Documents\\Keyner\\PruebaTecnica\\PatientManagement\\PatientManagement.Application\\Class1.cs",
-              "RelativeToolTip": "PatientManagement.Application\\Class1.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-01T23:44:39.558Z",
               "EditorCaption": ""
             }
           ]
