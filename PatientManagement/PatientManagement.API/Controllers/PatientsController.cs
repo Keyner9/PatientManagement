@@ -23,4 +23,11 @@ public class PatientsController : ControllerBase
         var response = await _patientService.GetAllAsync(filter, cancellationToken);
         return Ok(response);
     }
+
+    [HttpGet("{id:int}")]
+    public async Task<IActionResult> GetByIdAsync([FromRoute] int id, CancellationToken cancellationToken)
+    {
+        var response = await _patientService.GetByIdAsync(id, cancellationToken);
+        return Ok(response);
+    }
 }
