@@ -1,0 +1,12 @@
+C:\Mac\Home\Documents\Keyner\PruebaTecnica\PatientManagement\PatientManagement.Application\bin\Debug\net9.0\PatientManagement.Application.deps.json
+C:\Mac\Home\Documents\Keyner\PruebaTecnica\PatientManagement\PatientManagement.Application\bin\Debug\net9.0\PatientManagement.Application.dll
+C:\Mac\Home\Documents\Keyner\PruebaTecnica\PatientManagement\PatientManagement.Application\bin\Debug\net9.0\PatientManagement.Application.pdb
+C:\Mac\Home\Documents\Keyner\PruebaTecnica\PatientManagement\PatientManagement.Application\obj\Debug\net9.0\PatientManagement.Application.GeneratedMSBuildEditorConfig.editorconfig
+C:\Mac\Home\Documents\Keyner\PruebaTecnica\PatientManagement\PatientManagement.Application\obj\Debug\net9.0\PatientManagement.Application.AssemblyInfoInputs.cache
+C:\Mac\Home\Documents\Keyner\PruebaTecnica\PatientManagement\PatientManagement.Application\obj\Debug\net9.0\PatientManagement.Application.AssemblyInfo.cs
+C:\Mac\Home\Documents\Keyner\PruebaTecnica\PatientManagement\PatientManagement.Application\obj\Debug\net9.0\PatientManagement.Application.csproj.CoreCompileInputs.cache
+C:\Mac\Home\Documents\Keyner\PruebaTecnica\PatientManagement\PatientManagement.Application\obj\Debug\net9.0\PatientManagement.Application.sourcelink.json
+C:\Mac\Home\Documents\Keyner\PruebaTecnica\PatientManagement\PatientManagement.Application\obj\Debug\net9.0\PatientManagement.Application.dll
+C:\Mac\Home\Documents\Keyner\PruebaTecnica\PatientManagement\PatientManagement.Application\obj\Debug\net9.0\refint\PatientManagement.Application.dll
+C:\Mac\Home\Documents\Keyner\PruebaTecnica\PatientManagement\PatientManagement.Application\obj\Debug\net9.0\PatientManagement.Application.pdb
+C:\Mac\Home\Documents\Keyner\PruebaTecnica\PatientManagement\PatientManagement.Application\obj\Debug\net9.0\ref\PatientManagement.Application.dll
