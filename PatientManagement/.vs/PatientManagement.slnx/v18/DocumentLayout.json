@@ -5,10 +5,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{A6F0E753-DC8E-8DB8-415A-8E564010C721}|PatientManagement.Tests\\PatientManagement.Tests.csproj|c:\\mac\\home\\documents\\keyner\\pruebatecnica\\patientmanagement\\patientmanagement.tests\\unittest1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A6F0E753-DC8E-8DB8-415A-8E564010C721}|PatientManagement.Tests\\PatientManagement.Tests.csproj|solutionrelative:patientmanagement.tests\\unittest1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{BB0AE6BE-93DD-CAFD-C0CC-8FE281975C9D}|PatientManagement.Infrastructure\\PatientManagement.Infrastructure.csproj|c:\\mac\\home\\documents\\keyner\\pruebatecnica\\patientmanagement\\patientmanagement.infrastructure\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{BB0AE6BE-93DD-CAFD-C0CC-8FE281975C9D}|PatientManagement.Infrastructure\\PatientManagement.Infrastructure.csproj|solutionrelative:patientmanagement.infrastructure\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -32,18 +28,6 @@
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-07-01T23:46:30.284Z",
               "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Class1.cs",
-              "DocumentMoniker": "C:\\Mac\\Home\\Documents\\Keyner\\PruebaTecnica\\PatientManagement\\PatientManagement.Infrastructure\\Class1.cs",
-              "RelativeDocumentMoniker": "PatientManagement.Infrastructure\\Class1.cs",
-              "ToolTip": "C:\\Mac\\Home\\Documents\\Keyner\\PruebaTecnica\\PatientManagement\\PatientManagement.Infrastructure\\Class1.cs",
-              "RelativeToolTip": "PatientManagement.Infrastructure\\Class1.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-01T23:45:41.655Z"
             }
           ]
         }

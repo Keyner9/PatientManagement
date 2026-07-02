@@ -1,20 +1,47 @@
+using FluentValidation;
+using PatientManagement.Application.Interfaces;
+using PatientManagement.Application.Services;
+using PatientManagement.API.Middleware;
+using PatientManagement.Infrastructure;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
 builder.Services.AddControllers();
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
+builder.Services.AddAutoMapper(cfg =>
+{
+    cfg.AddProfile<PatientManagement.Application.Mapping.PatientProfile>();
+});
+
+builder.Services.AddValidatorsFromAssemblyContaining<PatientManagement.Application.Mapping.PatientProfile>();
+
+builder.Services.AddInfrastructure(builder.Configuration);
+
+builder.Services.AddScoped<IPatientService, PatientService>();
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAngularApp", policy =>
+    {
+        policy.WithOrigins("http://localhost:4200")
+            .AllowAnyMethod()
+            .AllowAnyHeader();
+    });
+});
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+app.UseMiddleware<ExceptionMiddleware>();
+
 if (app.Environment.IsDevelopment())
 {
-    app.MapOpenApi();
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+app.UseCors("AllowAngularApp");
 
 app.UseAuthorization();
 

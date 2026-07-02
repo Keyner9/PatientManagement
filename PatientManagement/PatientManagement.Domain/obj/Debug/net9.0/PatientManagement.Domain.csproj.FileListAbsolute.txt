@@ -22,3 +22,15 @@ C:\Mac\Home\Documents\Keyner\PruebaTecnica\PatientManagement\PatientManagement.D
 C:\Mac\Home\Documents\Keyner\PruebaTecnica\PatientManagement\PatientManagement.Domain\obj\Debug\net9.0\refint\PatientManagement.Domain.dll
 C:\Mac\Home\Documents\Keyner\PruebaTecnica\PatientManagement\PatientManagement.Domain\obj\Debug\net9.0\PatientManagement.Domain.pdb
 C:\Mac\Home\Documents\Keyner\PruebaTecnica\PatientManagement\PatientManagement.Domain\obj\Debug\net9.0\ref\PatientManagement.Domain.dll
+\\psf\Home\Documents\Keyner\PruebaTecnica\PatientManagement\PatientManagement.Domain\bin\Debug\net9.0\PatientManagement.Domain.deps.json
+\\psf\Home\Documents\Keyner\PruebaTecnica\PatientManagement\PatientManagement.Domain\bin\Debug\net9.0\PatientManagement.Domain.dll
+\\psf\Home\Documents\Keyner\PruebaTecnica\PatientManagement\PatientManagement.Domain\bin\Debug\net9.0\PatientManagement.Domain.pdb
+\\psf\Home\Documents\Keyner\PruebaTecnica\PatientManagement\PatientManagement.Domain\obj\Debug\net9.0\PatientManagement.Domain.GeneratedMSBuildEditorConfig.editorconfig
+\\psf\Home\Documents\Keyner\PruebaTecnica\PatientManagement\PatientManagement.Domain\obj\Debug\net9.0\PatientManagement.Domain.AssemblyInfoInputs.cache
+\\psf\Home\Documents\Keyner\PruebaTecnica\PatientManagement\PatientManagement.Domain\obj\Debug\net9.0\PatientManagement.Domain.AssemblyInfo.cs
+\\psf\Home\Documents\Keyner\PruebaTecnica\PatientManagement\PatientManagement.Domain\obj\Debug\net9.0\PatientManagement.Domain.csproj.CoreCompileInputs.cache
+\\psf\Home\Documents\Keyner\PruebaTecnica\PatientManagement\PatientManagement.Domain\obj\Debug\net9.0\PatientManagement.Domain.sourcelink.json
+\\psf\Home\Documents\Keyner\PruebaTecnica\PatientManagement\PatientManagement.Domain\obj\Debug\net9.0\PatientManagement.Domain.dll
+\\psf\Home\Documents\Keyner\PruebaTecnica\PatientManagement\PatientManagement.Domain\obj\Debug\net9.0\refint\PatientManagement.Domain.dll
+\\psf\Home\Documents\Keyner\PruebaTecnica\PatientManagement\PatientManagement.Domain\obj\Debug\net9.0\PatientManagement.Domain.pdb
+\\psf\Home\Documents\Keyner\PruebaTecnica\PatientManagement\PatientManagement.Domain\obj\Debug\net9.0\ref\PatientManagement.Domain.dll
