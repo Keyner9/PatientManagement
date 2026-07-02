@@ -1,43 +1,37 @@
 {
   "format": 1,
   "restore": {
-    "\\\\psf\\Home\\Documents\\Keyner\\PruebaTecnica\\PatientManagement\\PatientManagement.API\\PatientManagement.API.csproj": {}
+    "/Users/jamessarmiento/Documents/Keyner/PruebaTecnica/PatientManagement/PatientManagement.API/PatientManagement.API.csproj": {}
   },
   "projects": {
-    "\\\\psf\\Home\\Documents\\Keyner\\PruebaTecnica\\PatientManagement\\PatientManagement.API\\PatientManagement.API.csproj": {
+    "/Users/jamessarmiento/Documents/Keyner/PruebaTecnica/PatientManagement/PatientManagement.API/PatientManagement.API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "\\\\psf\\Home\\Documents\\Keyner\\PruebaTecnica\\PatientManagement\\PatientManagement.API\\PatientManagement.API.csproj",
+        "projectUniqueName": "/Users/jamessarmiento/Documents/Keyner/PruebaTecnica/PatientManagement/PatientManagement.API/PatientManagement.API.csproj",
         "projectName": "PatientManagement.API",
-        "projectPath": "\\\\psf\\Home\\Documents\\Keyner\\PruebaTecnica\\PatientManagement\\PatientManagement.API\\PatientManagement.API.csproj",
-        "packagesPath": "C:\\Users\\jamessarmiento\\.nuget\\packages\\",
-        "outputPath": "\\\\psf\\Home\\Documents\\Keyner\\PruebaTecnica\\PatientManagement\\PatientManagement.API\\obj\\",
+        "projectPath": "/Users/jamessarmiento/Documents/Keyner/PruebaTecnica/PatientManagement/PatientManagement.API/PatientManagement.API.csproj",
+        "packagesPath": "/Users/jamessarmiento/.nuget/packages/",
+        "outputPath": "/Users/jamessarmiento/Documents/Keyner/PruebaTecnica/PatientManagement/PatientManagement.API/obj/",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\jamessarmiento\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "/Users/jamessarmiento/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net9.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "/usr/local/share/dotnet/library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net9.0": {
-            "framework": "net9.0",
             "targetAlias": "net9.0",
             "projectReferences": {
-              "\\\\psf\\Home\\Documents\\Keyner\\PruebaTecnica\\PatientManagement\\PatientManagement.Application\\PatientManagement.Application.csproj": {
-                "projectPath": "\\\\psf\\Home\\Documents\\Keyner\\PruebaTecnica\\PatientManagement\\PatientManagement.Application\\PatientManagement.Application.csproj"
+              "/Users/jamessarmiento/Documents/Keyner/PruebaTecnica/PatientManagement/PatientManagement.Application/PatientManagement.Application.csproj": {
+                "projectPath": "/Users/jamessarmiento/Documents/Keyner/PruebaTecnica/PatientManagement/PatientManagement.Application/PatientManagement.Application.csproj"
               },
-              "\\\\psf\\Home\\Documents\\Keyner\\PruebaTecnica\\PatientManagement\\PatientManagement.Infrastructure\\PatientManagement.Infrastructure.csproj": {
-                "projectPath": "\\\\psf\\Home\\Documents\\Keyner\\PruebaTecnica\\PatientManagement\\PatientManagement.Infrastructure\\PatientManagement.Infrastructure.csproj"
+              "/Users/jamessarmiento/Documents/Keyner/PruebaTecnica/PatientManagement/PatientManagement.Infrastructure/PatientManagement.Infrastructure.csproj": {
+                "projectPath": "/Users/jamessarmiento/Documents/Keyner/PruebaTecnica/PatientManagement/PatientManagement.Infrastructure/PatientManagement.Infrastructure.csproj"
               }
             }
           }
@@ -52,11 +46,10 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "10.0.300"
+        "SdkAnalysisLevel": "9.0.300"
       },
       "frameworks": {
         "net9.0": {
-          "framework": "net9.0",
           "targetAlias": "net9.0",
           "dependencies": {
             "FluentValidation.AspNetCore": {
@@ -101,41 +94,35 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.301/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/9.0.313/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "\\\\psf\\Home\\Documents\\Keyner\\PruebaTecnica\\PatientManagement\\PatientManagement.Application\\PatientManagement.Application.csproj": {
+    "/Users/jamessarmiento/Documents/Keyner/PruebaTecnica/PatientManagement/PatientManagement.Application/PatientManagement.Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "\\\\psf\\Home\\Documents\\Keyner\\PruebaTecnica\\PatientManagement\\PatientManagement.Application\\PatientManagement.Application.csproj",
+        "projectUniqueName": "/Users/jamessarmiento/Documents/Keyner/PruebaTecnica/PatientManagement/PatientManagement.Application/PatientManagement.Application.csproj",
         "projectName": "PatientManagement.Application",
-        "projectPath": "\\\\psf\\Home\\Documents\\Keyner\\PruebaTecnica\\PatientManagement\\PatientManagement.Application\\PatientManagement.Application.csproj",
-        "packagesPath": "C:\\Users\\jamessarmiento\\.nuget\\packages\\",
-        "outputPath": "\\\\psf\\Home\\Documents\\Keyner\\PruebaTecnica\\PatientManagement\\PatientManagement.Application\\obj\\",
+        "projectPath": "/Users/jamessarmiento/Documents/Keyner/PruebaTecnica/PatientManagement/PatientManagement.Application/PatientManagement.Application.csproj",
+        "packagesPath": "/Users/jamessarmiento/.nuget/packages/",
+        "outputPath": "/Users/jamessarmiento/Documents/Keyner/PruebaTecnica/PatientManagement/PatientManagement.Application/obj/",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\jamessarmiento\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "/Users/jamessarmiento/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net9.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "/usr/local/share/dotnet/library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net9.0": {
-            "framework": "net9.0",
             "targetAlias": "net9.0",
             "projectReferences": {
-              "\\\\psf\\Home\\Documents\\Keyner\\PruebaTecnica\\PatientManagement\\PatientManagement.Domain\\PatientManagement.Domain.csproj": {
-                "projectPath": "\\\\psf\\Home\\Documents\\Keyner\\PruebaTecnica\\PatientManagement\\PatientManagement.Domain\\PatientManagement.Domain.csproj"
+              "/Users/jamessarmiento/Documents/Keyner/PruebaTecnica/PatientManagement/PatientManagement.Domain/PatientManagement.Domain.csproj": {
+                "projectPath": "/Users/jamessarmiento/Documents/Keyner/PruebaTecnica/PatientManagement/PatientManagement.Domain/PatientManagement.Domain.csproj"
               }
             }
           }
@@ -150,11 +137,10 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "10.0.300"
+        "SdkAnalysisLevel": "9.0.300"
       },
       "frameworks": {
         "net9.0": {
-          "framework": "net9.0",
           "targetAlias": "net9.0",
           "dependencies": {
             "AutoMapper": {
@@ -182,37 +168,31 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.301/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/9.0.313/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "\\\\psf\\Home\\Documents\\Keyner\\PruebaTecnica\\PatientManagement\\PatientManagement.Domain\\PatientManagement.Domain.csproj": {
+    "/Users/jamessarmiento/Documents/Keyner/PruebaTecnica/PatientManagement/PatientManagement.Domain/PatientManagement.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "\\\\psf\\Home\\Documents\\Keyner\\PruebaTecnica\\PatientManagement\\PatientManagement.Domain\\PatientManagement.Domain.csproj",
+        "projectUniqueName": "/Users/jamessarmiento/Documents/Keyner/PruebaTecnica/PatientManagement/PatientManagement.Domain/PatientManagement.Domain.csproj",
         "projectName": "PatientManagement.Domain",
-        "projectPath": "\\\\psf\\Home\\Documents\\Keyner\\PruebaTecnica\\PatientManagement\\PatientManagement.Domain\\PatientManagement.Domain.csproj",
-        "packagesPath": "C:\\Users\\jamessarmiento\\.nuget\\packages\\",
-        "outputPath": "\\\\psf\\Home\\Documents\\Keyner\\PruebaTecnica\\PatientManagement\\PatientManagement.Domain\\obj\\",
+        "projectPath": "/Users/jamessarmiento/Documents/Keyner/PruebaTecnica/PatientManagement/PatientManagement.Domain/PatientManagement.Domain.csproj",
+        "packagesPath": "/Users/jamessarmiento/.nuget/packages/",
+        "outputPath": "/Users/jamessarmiento/Documents/Keyner/PruebaTecnica/PatientManagement/PatientManagement.Domain/obj/",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\jamessarmiento\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "/Users/jamessarmiento/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net9.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "/usr/local/share/dotnet/library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net9.0": {
-            "framework": "net9.0",
             "targetAlias": "net9.0",
             "projectReferences": {}
           }
@@ -227,11 +207,10 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "10.0.300"
+        "SdkAnalysisLevel": "9.0.300"
       },
       "frameworks": {
         "net9.0": {
-          "framework": "net9.0",
           "targetAlias": "net9.0",
           "imports": [
             "net461",
@@ -249,44 +228,38 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.301/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/9.0.313/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "\\\\psf\\Home\\Documents\\Keyner\\PruebaTecnica\\PatientManagement\\PatientManagement.Infrastructure\\PatientManagement.Infrastructure.csproj": {
+    "/Users/jamessarmiento/Documents/Keyner/PruebaTecnica/PatientManagement/PatientManagement.Infrastructure/PatientManagement.Infrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "\\\\psf\\Home\\Documents\\Keyner\\PruebaTecnica\\PatientManagement\\PatientManagement.Infrastructure\\PatientManagement.Infrastructure.csproj",
+        "projectUniqueName": "/Users/jamessarmiento/Documents/Keyner/PruebaTecnica/PatientManagement/PatientManagement.Infrastructure/PatientManagement.Infrastructure.csproj",
         "projectName": "PatientManagement.Infrastructure",
-        "projectPath": "\\\\psf\\Home\\Documents\\Keyner\\PruebaTecnica\\PatientManagement\\PatientManagement.Infrastructure\\PatientManagement.Infrastructure.csproj",
-        "packagesPath": "C:\\Users\\jamessarmiento\\.nuget\\packages\\",
-        "outputPath": "\\\\psf\\Home\\Documents\\Keyner\\PruebaTecnica\\PatientManagement\\PatientManagement.Infrastructure\\obj\\",
+        "projectPath": "/Users/jamessarmiento/Documents/Keyner/PruebaTecnica/PatientManagement/PatientManagement.Infrastructure/PatientManagement.Infrastructure.csproj",
+        "packagesPath": "/Users/jamessarmiento/.nuget/packages/",
+        "outputPath": "/Users/jamessarmiento/Documents/Keyner/PruebaTecnica/PatientManagement/PatientManagement.Infrastructure/obj/",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\jamessarmiento\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "/Users/jamessarmiento/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net9.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "/usr/local/share/dotnet/library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net9.0": {
-            "framework": "net9.0",
             "targetAlias": "net9.0",
             "projectReferences": {
-              "\\\\psf\\Home\\Documents\\Keyner\\PruebaTecnica\\PatientManagement\\PatientManagement.Application\\PatientManagement.Application.csproj": {
-                "projectPath": "\\\\psf\\Home\\Documents\\Keyner\\PruebaTecnica\\PatientManagement\\PatientManagement.Application\\PatientManagement.Application.csproj"
+              "/Users/jamessarmiento/Documents/Keyner/PruebaTecnica/PatientManagement/PatientManagement.Application/PatientManagement.Application.csproj": {
+                "projectPath": "/Users/jamessarmiento/Documents/Keyner/PruebaTecnica/PatientManagement/PatientManagement.Application/PatientManagement.Application.csproj"
               },
-              "\\\\psf\\Home\\Documents\\Keyner\\PruebaTecnica\\PatientManagement\\PatientManagement.Domain\\PatientManagement.Domain.csproj": {
-                "projectPath": "\\\\psf\\Home\\Documents\\Keyner\\PruebaTecnica\\PatientManagement\\PatientManagement.Domain\\PatientManagement.Domain.csproj"
+              "/Users/jamessarmiento/Documents/Keyner/PruebaTecnica/PatientManagement/PatientManagement.Domain/PatientManagement.Domain.csproj": {
+                "projectPath": "/Users/jamessarmiento/Documents/Keyner/PruebaTecnica/PatientManagement/PatientManagement.Domain/PatientManagement.Domain.csproj"
               }
             }
           }
@@ -301,11 +274,10 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "10.0.300"
+        "SdkAnalysisLevel": "9.0.300"
       },
       "frameworks": {
         "net9.0": {
-          "framework": "net9.0",
           "targetAlias": "net9.0",
           "dependencies": {
             "Microsoft.EntityFrameworkCore": {
@@ -345,7 +317,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.301/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/9.0.313/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

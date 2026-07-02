@@ -1,0 +1,52 @@
+# .NET build artifacts
+bin/
+obj/
+
+# Visual Studio 2022
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+*.userprefs
+
+# Visual Studio Code
+.vscode/
+
+# JetBrains Rider
+.idea/
+*.sln.iml
+
+# EF Core migrations snapshot (tracked intentionally)
+# Migrations/ are NOT ignored
+
+# Node.js / Angular (frontend will be added later)
+node_modules/
+dist/
+*.ngsummary.json
+*.ngfactory.ts
+
+# Test results
+TestResults/
+coverage/
+*.trx
+
+# Cache and temp files
+*.cache
+*.log
+*.tmp
+*.temp
+
+# OS files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# NuGet
+packages/
+*.nupkg
+
+# User-specific config (keep template appsettings)
+appsettings.*.local.json
+appsettings.*.Development.local.json
+secrets.json
