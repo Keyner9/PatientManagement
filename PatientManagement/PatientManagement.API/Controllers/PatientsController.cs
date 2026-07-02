@@ -24,10 +24,17 @@ public class PatientsController : ControllerBase
         return Ok(response);
     }
 
-    [HttpGet("{id:int}")]
+    [HttpGet("{id:int}", Name = "GetPatientById")]
     public async Task<IActionResult> GetByIdAsync([FromRoute] int id, CancellationToken cancellationToken)
     {
         var response = await _patientService.GetByIdAsync(id, cancellationToken);
         return Ok(response);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> CreateAsync([FromBody] CreatePatientDto dto, CancellationToken cancellationToken)
+    {
+        var response = await _patientService.CreateAsync(dto, cancellationToken);
+        return CreatedAtRoute("GetPatientById", new { id = response.Data!.PatientId }, response);
     }
 }

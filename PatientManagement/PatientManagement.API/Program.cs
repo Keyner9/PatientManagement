@@ -1,4 +1,5 @@
 using FluentValidation;
+using FluentValidation.AspNetCore;
 using PatientManagement.Application.Interfaces;
 using PatientManagement.Application.Services;
 using PatientManagement.API.Middleware;
@@ -16,6 +17,7 @@ builder.Services.AddAutoMapper(cfg =>
 });
 
 builder.Services.AddValidatorsFromAssemblyContaining<PatientManagement.Application.Mapping.PatientProfile>();
+builder.Services.AddFluentValidationAutoValidation();
 
 builder.Services.AddInfrastructure(builder.Configuration);
 
