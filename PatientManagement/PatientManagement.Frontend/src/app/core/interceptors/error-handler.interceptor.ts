@@ -10,18 +10,18 @@ export const errorHandlerInterceptor: HttpInterceptorFn = (req, next) => {
   return next(req).pipe(
     catchError((error: HttpErrorResponse) => {
       let summary = 'Error';
-      let detail = 'An unexpected error occurred.';
+      let detail = 'Ocurrio un error inesperado.';
 
       if (error.status === 0) {
-        detail = 'Could not connect to the server. Please check your connection.';
+        detail = 'No se pudo conectar al servidor. Por favor, verifique su conexion.';
       } else if (error.status === 400) {
-        detail = error.error?.title || 'Invalid request.';
+        detail = error.error?.title || 'Solicitud invalida.';
       } else if (error.status === 404) {
-        detail = 'Resource not found.';
+        detail = 'Recurso no encontrado.';
       } else if (error.status === 409) {
-        detail = error.error || 'Resource conflict.';
+        detail = error.error || 'Conflicto de recurso.';
       } else if (error.status >= 500) {
-        detail = 'Server error. Please try again later.';
+        detail = 'Error del servidor. Por favor, intente de nuevo mas tarde.';
       }
 
       messageService.add({ severity: 'error', summary, detail, life: 5000 });

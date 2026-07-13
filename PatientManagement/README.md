@@ -315,7 +315,7 @@ All endpoints (except DELETE) return the unified `ApiResponse<T>` envelope:
 ```json
 {
   "success": true,
-  "message": "Operation completed successfully.",
+  "message": "Operacion completada correctamente.",
   "data": { }
 }
 ```
@@ -325,7 +325,7 @@ Error responses:
 ```json
 {
   "success": false,
-  "message": "Patient with id 999 was not found.",
+  "message": "No se encontro el paciente con id 999.",
   "data": null
 }
 ```
@@ -353,7 +353,7 @@ Response (201 Created):
 ```json
 {
   "success": true,
-  "message": "Patient created successfully.",
+  "message": "Paciente creado correctamente.",
   "data": {
     "patientId": 11,
     "documentType": "DNI",
@@ -463,13 +463,13 @@ Both `CreatePatientValidator` and `UpdatePatientValidator` apply identical rules
 
 | Field | Rule | Message |
 |---|---|---|
-| `DocumentType` | `NotEmpty`, `MaximumLength(10)` | "Document type is required." / "must not exceed 10 characters." |
-| `DocumentNumber` | `NotEmpty`, `MaximumLength(20)` | "Document number is required." / "must not exceed 20 characters." |
-| `FirstName` | `NotEmpty`, `MaximumLength(80)` | "First name is required." / "must not exceed 80 characters." |
-| `LastName` | `NotEmpty`, `MaximumLength(80)` | "Last name is required." / "must not exceed 80 characters." |
-| `BirthDate` | `NotEmpty` | "Birth date is required." |
-| `PhoneNumber` | `MaximumLength(20)` when not null | "must not exceed 20 characters." |
-| `Email` | `MaximumLength(120)`, `EmailAddress()` when not null | "must not exceed 120 characters." / "Invalid email format." |
+| `DocumentType` | `NotEmpty`, `MaximumLength(10)` | "El tipo de documento es obligatorio." / "no debe exceder 10 caracteres." |
+| `DocumentNumber` | `NotEmpty`, `MaximumLength(20)` | "El numero de documento es obligatorio." / "no debe exceder 20 caracteres." |
+| `FirstName` | `NotEmpty`, `MaximumLength(80)` | "El nombre es obligatorio." / "no debe exceder 80 caracteres." |
+| `LastName` | `NotEmpty`, `MaximumLength(80)` | "El apellido es obligatorio." / "no debe exceder 80 caracteres." |
+| `BirthDate` | `NotEmpty` | "La fecha de nacimiento es obligatoria." |
+| `PhoneNumber` | `MaximumLength(20)` when not null | "no debe exceder 20 caracteres." |
+| `Email` | `MaximumLength(120)`, `EmailAddress()` when not null | "no debe exceder 120 caracteres." / "Formato de correo electronico invalido." |
 
 Validators are registered via `AddValidatorsFromAssemblyContaining<>` in `Program.cs`, using the assembly that contains `PatientProfile` as the scan target.
 
@@ -483,7 +483,7 @@ The `ExceptionMiddleware` class (in `PatientManagement.API.Middleware`) wraps ev
 |---|---|---|---|
 | `NotFoundException` | `404 Not Found` | Warning | `ApiResponse<object>.Fail(ex.Message)` |
 | `DuplicatePatientException` | `409 Conflict` | Warning | `ApiResponse<object>.Fail(ex.Message)` |
-| Any unhandled `Exception` | `500 Internal Server Error` | Error | `ApiResponse<object>.Fail("An unexpected error occurred.")` |
+| Any unhandled `Exception` | `500 Internal Server Error` | Error | `ApiResponse<object>.Fail("Ocurrio un error inesperado.")` |
 
 All error responses use the same `ApiResponse<T>` format with `success: false` and contain no sensitive information or stack traces.
 

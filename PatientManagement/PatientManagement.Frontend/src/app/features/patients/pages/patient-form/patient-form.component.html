@@ -2,62 +2,62 @@
   <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
     <div class="form-grid">
       <div class="field">
-        <label for="documentType">Document Type</label>
-        <p-select id="documentType" formControlName="documentType" [options]="documentTypes" styleClass="w-full" title="Document type" aria-label="Select document type" />
+        <label for="documentType">Tipo de Documento</label>
+        <p-select id="documentType" formControlName="documentType" [options]="documentTypes" styleClass="w-full" title="Tipo de documento" aria-label="Seleccionar tipo de documento" />
       </div>
 
       <div class="field">
-        <label for="documentNumber">Document Number</label>
-        <input id="documentNumber" pInputText formControlName="documentNumber" class="w-full" autocomplete="off" title="Document number" aria-label="Document number" />
+        <label for="documentNumber">Numero de Documento</label>
+        <input id="documentNumber" pInputText formControlName="documentNumber" class="w-full" autocomplete="off" title="Numero de documento" aria-label="Numero de documento" />
         @if (form.controls.documentNumber.errors?.['required'] && form.controls.documentNumber.touched) {
-          <p-message severity="error" variant="simple" text="Document number is required" />
+          <p-message severity="error" variant="simple" text="El numero de documento es obligatorio" />
         }
         @if (form.controls.documentNumber.errors?.['duplicate']) {
-          <p-message severity="error" variant="simple" text="A patient with this document already exists" />
+          <p-message severity="error" variant="simple" text="Ya existe un paciente con este documento" />
         }
       </div>
 
       <div class="field">
-        <label for="firstName">First Name</label>
-        <input id="firstName" pInputText formControlName="firstName" class="w-full" autocomplete="given-name" title="First name" aria-label="First name" />
+        <label for="firstName">Nombre</label>
+        <input id="firstName" pInputText formControlName="firstName" class="w-full" autocomplete="given-name" title="Nombre" aria-label="Nombre" />
         @if (form.controls.firstName.errors?.['required'] && form.controls.firstName.touched) {
-          <p-message severity="error" variant="simple" text="First name is required" />
+          <p-message severity="error" variant="simple" text="El nombre es obligatorio" />
         }
       </div>
 
       <div class="field">
-        <label for="lastName">Last Name</label>
-        <input id="lastName" pInputText formControlName="lastName" class="w-full" autocomplete="family-name" title="Last name" aria-label="Last name" />
+        <label for="lastName">Apellido</label>
+        <input id="lastName" pInputText formControlName="lastName" class="w-full" autocomplete="family-name" title="Apellido" aria-label="Apellido" />
         @if (form.controls.lastName.errors?.['required'] && form.controls.lastName.touched) {
-          <p-message severity="error" variant="simple" text="Last name is required" />
+          <p-message severity="error" variant="simple" text="El apellido es obligatorio" />
         }
       </div>
 
       <div class="field">
-        <label for="birthDate">Birth Date</label>
-        <p-datepicker id="birthDate" formControlName="birthDate" dateFormat="yy-mm-dd" [showIcon]="true" styleClass="w-full" title="Birth date" aria-label="Birth date" />
+        <label for="birthDate">Fecha de Nacimiento</label>
+        <p-datepicker id="birthDate" formControlName="birthDate" dateFormat="yy-mm-dd" [showIcon]="true" styleClass="w-full" title="Fecha de nacimiento" aria-label="Fecha de nacimiento" />
         @if (form.controls.birthDate.errors?.['required'] && form.controls.birthDate.touched) {
-          <p-message severity="error" variant="simple" text="Birth date is required" />
+          <p-message severity="error" variant="simple" text="La fecha de nacimiento es obligatoria" />
         }
       </div>
 
       <div class="field">
-        <label for="phoneNumber">Phone Number</label>
-        <input id="phoneNumber" pInputText formControlName="phoneNumber" class="w-full" autocomplete="tel" title="Phone number" aria-label="Phone number" />
+        <label for="phoneNumber">Numero de Telefono</label>
+        <input id="phoneNumber" pInputText formControlName="phoneNumber" class="w-full" autocomplete="tel" title="Numero de telefono" aria-label="Numero de telefono" />
       </div>
 
       <div class="field">
-        <label for="email">Email</label>
-        <input id="email" pInputText formControlName="email" class="w-full" autocomplete="email" title="Email address" aria-label="Email address" />
+        <label for="email">Correo Electronico</label>
+        <input id="email" pInputText formControlName="email" class="w-full" autocomplete="email" title="Correo electronico" aria-label="Correo electronico" />
         @if (form.controls.email.errors?.['email'] && form.controls.email.touched) {
-          <p-message severity="error" variant="simple" text="Invalid email format" />
+          <p-message severity="error" variant="simple" text="Formato de correo electronico invalido" />
         }
       </div>
     </div>
 
     <div class="form-actions">
-      <button pButton type="button" severity="secondary" label="Cancel" icon="pi pi-times" (click)="goBack()" title="Cancel and go back" aria-label="Cancel"></button>
-      <button pButton type="submit" label="Save" icon="pi pi-check" [loading]="loading()" [disabled]="form.invalid" title="Save patient" aria-label="Save patient"></button>
+      <button pButton type="button" severity="secondary" label="Cancelar" icon="pi pi-times" (click)="goBack()" title="Cancelar y volver" aria-label="Cancelar"></button>
+      <button pButton type="submit" label="Guardar" icon="pi pi-check" [loading]="loading()" [disabled]="form.invalid" title="Guardar paciente" aria-label="Guardar paciente"></button>
     </div>
   </form>
 </p-card>

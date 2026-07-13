@@ -62,7 +62,7 @@ describe('PatientListComponent', () => {
 
     const table = fixture.nativeElement.querySelector('p-table');
     expect(table).not.toBeNull();
-    expect(fixture.nativeElement.textContent).toContain('patients');
+    expect(fixture.nativeElement.textContent).toContain('Pacientes');
   });
 
   it('should apply filters', fakeAsync(() => {

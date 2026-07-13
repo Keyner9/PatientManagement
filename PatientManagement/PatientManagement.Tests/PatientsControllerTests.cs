@@ -96,7 +96,7 @@ public class PatientsControllerTests
             BirthDate = new DateOnly(1985, 3, 15)
         };
         var serviceResponse = CreatePatientResponse(1);
-        serviceResponse.Message = "Patient created successfully.";
+        serviceResponse.Message = "Paciente creado correctamente.";
 
         _serviceMock
             .Setup(s => s.CreateAsync(dto, It.IsAny<CancellationToken>()))
@@ -111,7 +111,7 @@ public class PatientsControllerTests
 
         var response = Assert.IsType<ApiResponse<PatientDto>>(createdResult.Value);
         Assert.True(response.Success);
-        Assert.Equal("Patient created successfully.", response.Message);
+        Assert.Equal("Paciente creado correctamente.", response.Message);
         Assert.NotNull(response.Data);
         Assert.Equal(1, response.Data.PatientId);
         _serviceMock.Verify(s => s.CreateAsync(dto, It.IsAny<CancellationToken>()), Times.Once);
@@ -153,7 +153,7 @@ public class PatientsControllerTests
     public async Task DeleteAsync_ShouldReturnNoContentResult_WhenPatientDeleted()
     {
         var id = 2;
-        var serviceResponse = ApiResponse<object>.Ok(null!, "Patient deleted successfully.");
+        var serviceResponse = ApiResponse<object>.Ok(null!, "Paciente eliminado correctamente.");
 
         _serviceMock
             .Setup(s => s.DeleteAsync(id, It.IsAny<CancellationToken>()))

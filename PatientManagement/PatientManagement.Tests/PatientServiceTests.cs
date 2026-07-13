@@ -100,7 +100,7 @@ public class PatientServiceTests
         var result = await _service.CreateAsync(dto, CancellationToken.None);
 
         Assert.True(result.Success);
-        Assert.Equal("Patient created successfully.", result.Message);
+        Assert.Equal("Paciente creado correctamente.", result.Message);
         Assert.NotNull(result.Data);
         Assert.Equal(1, result.Data.PatientId);
         Assert.Equal("Carlos", result.Data.FirstName);
@@ -261,7 +261,7 @@ public class PatientServiceTests
         var result = await _service.UpdateAsync(id, updateDto, CancellationToken.None);
 
         Assert.True(result.Success);
-        Assert.Equal("Patient updated successfully.", result.Message);
+        Assert.Equal("Paciente actualizado correctamente.", result.Message);
         Assert.NotNull(result.Data);
         Assert.Equal("Carlos Updated", result.Data.FirstName);
         _repositoryMock.Verify(r => r.GetByIdAsync(id, It.IsAny<CancellationToken>()), Times.Once);
@@ -320,7 +320,7 @@ public class PatientServiceTests
         var result = await _service.DeleteAsync(id, CancellationToken.None);
 
         Assert.True(result.Success);
-        Assert.Equal("Patient deleted successfully.", result.Message);
+        Assert.Equal("Paciente eliminado correctamente.", result.Message);
         Assert.Null(result.Data);
         _repositoryMock.Verify(r => r.DeleteAsync(patient, It.IsAny<CancellationToken>()), Times.Once);
     }

@@ -24,18 +24,18 @@ public class ExceptionMiddleware
         }
         catch (NotFoundException ex)
         {
-            _logger.LogWarning(ex, "Resource not found");
+            _logger.LogWarning(ex, "Recurso no encontrado");
             await HandleExceptionAsync(context, HttpStatusCode.NotFound, ex.Message);
         }
         catch (DuplicatePatientException ex)
         {
-            _logger.LogWarning(ex, "Duplicate patient detected");
+            _logger.LogWarning(ex, "Paciente duplicado detectado");
             await HandleExceptionAsync(context, HttpStatusCode.Conflict, ex.Message);
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "An unhandled exception occurred");
-            await HandleExceptionAsync(context, HttpStatusCode.InternalServerError, "An unexpected error occurred.");
+            _logger.LogError(ex, "Ocurrio una excepcion no controlada");
+            await HandleExceptionAsync(context, HttpStatusCode.InternalServerError, "Ocurrio un error inesperado.");
         }
     }
 

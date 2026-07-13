@@ -103,8 +103,8 @@ export class PatientListComponent {
 
   onDelete(patient: Patient): void {
     this.#confirmationService.confirm({
-      message: `Are you sure you want to delete ${patient.firstName} ${patient.lastName}?`,
-      header: 'Confirm Delete',
+      message: `Esta seguro de que desea eliminar a ${patient.firstName} ${patient.lastName}?`,
+      header: 'Confirmar eliminacion',
       icon: 'pi pi-exclamation-triangle',
       accept: () => this.#deletePatient(patient),
     });
@@ -118,8 +118,8 @@ export class PatientListComponent {
         next: () => {
           this.#messageService.add({
             severity: 'success',
-            summary: 'Deleted',
-            detail: `${patient.firstName} ${patient.lastName} has been deleted.`,
+            summary: 'Eliminado',
+            detail: `${patient.firstName} ${patient.lastName} ha sido eliminado.`,
             life: 3000,
           });
           this.refresh();

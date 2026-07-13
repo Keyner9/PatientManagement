@@ -8,31 +8,31 @@ public class UpdatePatientValidator : AbstractValidator<UpdatePatientDto>
     public UpdatePatientValidator()
     {
         RuleFor(x => x.DocumentType)
-            .NotEmpty().WithMessage("Document type is required.")
-            .MaximumLength(10).WithMessage("Document type must not exceed 10 characters.");
+            .NotEmpty().WithMessage("El tipo de documento es obligatorio.")
+            .MaximumLength(10).WithMessage("El tipo de documento no debe exceder 10 caracteres.");
 
         RuleFor(x => x.DocumentNumber)
-            .NotEmpty().WithMessage("Document number is required.")
-            .MaximumLength(20).WithMessage("Document number must not exceed 20 characters.");
+            .NotEmpty().WithMessage("El numero de documento es obligatorio.")
+            .MaximumLength(20).WithMessage("El numero de documento no debe exceder 20 caracteres.");
 
         RuleFor(x => x.FirstName)
-            .NotEmpty().WithMessage("First name is required.")
-            .MaximumLength(80).WithMessage("First name must not exceed 80 characters.");
+            .NotEmpty().WithMessage("El nombre es obligatorio.")
+            .MaximumLength(80).WithMessage("El nombre no debe exceder 80 caracteres.");
 
         RuleFor(x => x.LastName)
-            .NotEmpty().WithMessage("Last name is required.")
-            .MaximumLength(80).WithMessage("Last name must not exceed 80 characters.");
+            .NotEmpty().WithMessage("El apellido es obligatorio.")
+            .MaximumLength(80).WithMessage("El apellido no debe exceder 80 caracteres.");
 
         RuleFor(x => x.BirthDate)
-            .NotEmpty().WithMessage("Birth date is required.");
+            .NotEmpty().WithMessage("La fecha de nacimiento es obligatoria.");
 
         RuleFor(x => x.PhoneNumber)
-            .MaximumLength(20).WithMessage("Phone number must not exceed 20 characters.")
+            .MaximumLength(20).WithMessage("El numero de telefono no debe exceder 20 caracteres.")
             .When(x => x.PhoneNumber is not null);
 
         RuleFor(x => x.Email)
-            .MaximumLength(120).WithMessage("Email must not exceed 120 characters.")
-            .EmailAddress().WithMessage("Invalid email format.")
+            .MaximumLength(120).WithMessage("El correo electronico no debe exceder 120 caracteres.")
+            .EmailAddress().WithMessage("Formato de correo electronico invalido.")
             .When(x => x.Email is not null);
     }
 }

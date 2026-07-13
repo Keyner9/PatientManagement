@@ -1,11 +1,11 @@
 <p-toolbar>
   <ng-template pTemplate="start">
-    <span class="toolbar-title">Patients</span>
+    <span class="toolbar-title">Pacientes</span>
   </ng-template>
   <ng-template pTemplate="end">
-    <button pButton icon="pi pi-refresh" (click)="refresh()" [loading]="loading()" title="Refresh patient list" aria-label="Refresh patient list"></button>
-    <button pButton icon="pi pi-file-export" label="Export CSV" severity="secondary" (click)="exportCSV()" title="Export to CSV" aria-label="Export to CSV"></button>
-    <button pButton icon="pi pi-plus" label="New Patient" routerLink="/patients/new" title="Create new patient" aria-label="Create new patient"></button>
+    <button pButton icon="pi pi-refresh" (click)="refresh()" [loading]="loading()" title="Actualizar lista de pacientes" aria-label="Actualizar lista de pacientes"></button>
+    <button pButton icon="pi pi-file-export" label="Exportar CSV" severity="secondary" (click)="exportCSV()" title="Exportar a CSV" aria-label="Exportar a CSV"></button>
+    <button pButton icon="pi pi-plus" label="Nuevo Paciente" routerLink="/patients/new" title="Crear nuevo paciente" aria-label="Crear nuevo paciente"></button>
   </ng-template>
 </p-toolbar>
 
@@ -13,13 +13,13 @@
   <div class="filter-row">
     <span class="p-input-icon-left filter-item">
       <i class="pi pi-search"></i>
-      <input pInputText [ngModel]="nameFilterValue()" (ngModelChange)="onNameChange($event)" placeholder="Search by name..." autocomplete="off" aria-label="Filter by name" title="Filter patients by name" />
+      <input pInputText [ngModel]="nameFilterValue()" (ngModelChange)="onNameChange($event)" placeholder="Buscar por nombre..." autocomplete="off" aria-label="Filtrar por nombre" title="Filtrar pacientes por nombre" />
     </span>
     <span class="p-input-icon-left filter-item">
       <i class="pi pi-id-card"></i>
-      <input pInputText [ngModel]="documentFilterValue()" (ngModelChange)="onDocumentNumberChange($event)" placeholder="Search by document..." autocomplete="off" aria-label="Filter by document number" title="Filter patients by document number" />
+      <input pInputText [ngModel]="documentFilterValue()" (ngModelChange)="onDocumentNumberChange($event)" placeholder="Buscar por documento..." autocomplete="off" aria-label="Filtrar por numero de documento" title="Filtrar pacientes por numero de documento" />
     </span>
-    <button pButton icon="pi pi-filter-slash" severity="secondary" (click)="onClearFilters()" [disabled]="!hasActiveFilters()" aria-label="Clear filters" title="Clear filters"></button>
+    <button pButton icon="pi pi-filter-slash" severity="secondary" (click)="onClearFilters()" [disabled]="!hasActiveFilters()" aria-label="Limpiar filtros" title="Limpiar filtros"></button>
   </div>
 </div>
 
@@ -34,28 +34,28 @@
 <p-table #table [value]="(patients$ | async) ?? []" [rowTrackBy]="rowTrackBy" [loading]="loading()" [paginator]="false" class="p-datatable-sm" [tableStyle]="{ 'min-width': '50rem' }">
   <ng-template pTemplate="header">
     <tr>
-      <th>Doc. Type</th>
-      <th>Doc. Number</th>
-      <th>Name</th>
-      <th>Phone</th>
+      <th>Tipo Doc.</th>
+      <th>Num. Documento</th>
+      <th>Nombre</th>
+      <th>Telefono</th>
       <th>Email</th>
-      <th>Created</th>
-      <th>Actions</th>
+      <th>Fecha de creacion</th>
+      <th>Acciones</th>
     </tr>
   </ng-template>
   <ng-template pTemplate="body" let-patient>
     <tr>
-      <td><span class="mobile-label">Doc. Type:</span>{{ patient.documentType }}</td>
-      <td><span class="mobile-label">Doc. Number:</span>{{ patient.documentNumber }}</td>
-      <td><span class="mobile-label">Name:</span>{{ patient.firstName }} {{ patient.lastName }}</td>
-      <td><span class="mobile-label">Phone:</span>{{ patient.phoneNumber || '-' }}</td>
+      <td><span class="mobile-label">Tipo Doc.:</span>{{ patient.documentType }}</td>
+      <td><span class="mobile-label">Num. Documento:</span>{{ patient.documentNumber }}</td>
+      <td><span class="mobile-label">Nombre:</span>{{ patient.firstName }} {{ patient.lastName }}</td>
+      <td><span class="mobile-label">Telefono:</span>{{ patient.phoneNumber || '-' }}</td>
       <td><span class="mobile-label">Email:</span>{{ patient.email || '-' }}</td>
-      <td><span class="mobile-label">Created:</span>{{ patient.createdAt | date:'shortDate' }}</td>
+      <td><span class="mobile-label">Fecha de creacion:</span>{{ patient.createdAt | date:'shortDate' }}</td>
       <td>
         <div class="action-buttons">
-          <button pButton icon="pi pi-eye" class="p-button-rounded p-button-text" [routerLink]="['/patients', patient.patientId]" title="View details" aria-label="View details for {{ patient.firstName }} {{ patient.lastName }}"></button>
-          <button pButton icon="pi pi-pencil" class="p-button-rounded p-button-text" [routerLink]="['/patients', patient.patientId, 'edit']" title="Edit patient" aria-label="Edit {{ patient.firstName }} {{ patient.lastName }}"></button>
-          <button pButton icon="pi pi-trash" class="p-button-rounded p-button-text p-button-danger" (click)="onDelete(patient)" title="Delete patient" aria-label="Delete {{ patient.firstName }} {{ patient.lastName }}"></button>
+          <button pButton icon="pi pi-eye" class="p-button-rounded p-button-text" [routerLink]="['/patients', patient.patientId]" title="Ver detalles" aria-label="Ver detalles de {{ patient.firstName }} {{ patient.lastName }}"></button>
+          <button pButton icon="pi pi-pencil" class="p-button-rounded p-button-text" [routerLink]="['/patients', patient.patientId, 'edit']" title="Editar paciente" aria-label="Editar {{ patient.firstName }} {{ patient.lastName }}"></button>
+          <button pButton icon="pi pi-trash" class="p-button-rounded p-button-text p-button-danger" (click)="onDelete(patient)" title="Eliminar paciente" aria-label="Eliminar {{ patient.firstName }} {{ patient.lastName }}"></button>
         </div>
       </td>
     </tr>
@@ -65,8 +65,8 @@
       <td colspan="7">
         <div class="empty-state">
           <i class="pi pi-inbox"></i>
-          <h3>No patients found</h3>
-          <p>Try adjusting your search criteria or create a new patient.</p>
+          <h3>No se encontraron pacientes</h3>
+          <p>Intente ajustar los criterios de busqueda o cree un nuevo paciente.</p>
         </div>
       </td>
     </tr>
@@ -74,7 +74,7 @@
 </p-table>
 
 @if (totalCount$ | async; as totalCount) {
-  <p-paginator [rows]="pageSize()" [totalRecords]="totalCount" (onPageChange)="onPageChange($event)" [showCurrentPageReport]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} patients" />
+  <p-paginator [rows]="pageSize()" [totalRecords]="totalCount" (onPageChange)="onPageChange($event)" [showCurrentPageReport]="true" currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} pacientes" />
 }
 
 <p-confirm-dialog />

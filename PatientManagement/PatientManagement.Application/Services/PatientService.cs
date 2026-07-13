@@ -30,7 +30,7 @@ public class PatientService : IPatientService
 
         if (patient is null)
         {
-            throw new NotFoundException($"Patient with id {id} was not found.");
+            throw new NotFoundException($"No se encontro el paciente con id {id}.");
         }
 
         var dto = _mapper.Map<PatientDto>(patient);
@@ -64,7 +64,7 @@ public class PatientService : IPatientService
         if (duplicate)
         {
             throw new DuplicatePatientException(
-                $"A patient with document {dto.DocumentType} {dto.DocumentNumber} already exists.");
+                $"Ya existe un paciente con el documento {dto.DocumentType} {dto.DocumentNumber}.");
         }
 
         var patient = _mapper.Map<Patient>(dto);
@@ -76,7 +76,7 @@ public class PatientService : IPatientService
             created.DocumentType, created.DocumentNumber, created.PatientId);
 
         var resultDto = _mapper.Map<PatientDto>(created);
-        return ApiResponse<PatientDto>.Ok(resultDto, "Patient created successfully.");
+        return ApiResponse<PatientDto>.Ok(resultDto, "Paciente creado correctamente.");
     }
 
     public async Task<ApiResponse<PatientDto>> UpdateAsync(
@@ -86,7 +86,7 @@ public class PatientService : IPatientService
 
         if (patient is null)
         {
-            throw new NotFoundException($"Patient with id {id} was not found.");
+            throw new NotFoundException($"No se encontro el paciente con id {id}.");
         }
 
         var documentChanged = patient.DocumentType != dto.DocumentType || patient.DocumentNumber != dto.DocumentNumber;
@@ -109,7 +109,7 @@ public class PatientService : IPatientService
         _logger.LogInformation("Patient {PatientId} updated", id);
 
         var resultDto = _mapper.Map<PatientDto>(patient);
-        return ApiResponse<PatientDto>.Ok(resultDto, "Patient updated successfully.");
+        return ApiResponse<PatientDto>.Ok(resultDto, "Paciente actualizado correctamente.");
     }
 
     public async Task<ApiResponse<object>> DeleteAsync(int id, CancellationToken cancellationToken = default)
@@ -118,13 +118,13 @@ public class PatientService : IPatientService
 
         if (patient is null)
         {
-            throw new NotFoundException($"Patient with id {id} was not found.");
+            throw new NotFoundException($"No se encontro el paciente con id {id}.");
         }
 
         await _repository.DeleteAsync(patient, cancellationToken);
 
         _logger.LogInformation("Patient {PatientId} deleted", id);
 
-        return ApiResponse<object>.Ok(null!, "Patient deleted successfully.");
+        return ApiResponse<object>.Ok(null!, "Paciente eliminado correctamente.");
     }
 }

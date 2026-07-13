@@ -36,7 +36,7 @@ export class PatientFormComponent {
   readonly documentTypes = DOCUMENT_TYPES;
   readonly isEdit = signal(false);
   readonly loading = signal(false);
-  readonly pageTitle = signal('New Patient');
+  readonly pageTitle = signal('Nuevo Paciente');
   readonly patientId = signal<number | null>(null);
 
   readonly form = this.#fb.nonNullable.group({
@@ -53,7 +53,7 @@ export class PatientFormComponent {
     const id = this.#route.snapshot.params['id'];
     if (id) {
       this.isEdit.set(true);
-      this.pageTitle.set('Edit Patient');
+      this.pageTitle.set('Editar Paciente');
       this.patientId.set(Number(id));
       this.#loadPatient(Number(id));
     }
