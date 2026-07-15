@@ -63,3 +63,14 @@ export interface ApiResponse<T> {
   message: string;
   data: T;
 }
+
+export interface Appointment {
+  appointmentId: number;
+  appointmentDate: string;
+  diagnosis?: string;
+  treatment?: string;
+  fee: number;
+  doctorName: string;
+  doctorSpecialty: string;
+  createdAt: string;
+}

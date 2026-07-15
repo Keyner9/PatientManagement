@@ -1,11 +1,9 @@
 <p-card header="Detalles del Paciente">
-  @if (loading()) {
-    <div class="skeleton-detail">
-      @for (item of [1,2,3,4,5,6,7]; track item) {
-        <p-skeleton height="1.5rem" styleClass="mb-2" borderRadius="4px" />
-      }
-    </div>
-  } @else if (patient(); as p) {
+  <div *ngIf="loading" class="skeleton-detail">
+    <p-skeleton height="1.5rem" styleClass="mb-2" *ngFor="let item of [1,2,3,4,5,6,7]"></p-skeleton>
+  </div>
+
+  <ng-container *ngIf="!loading && patient() as p">
     <div class="detail-grid">
       <div class="detail-item">
         <span class="detail-label">Tipo de Documento</span>
@@ -40,10 +38,53 @@
         <span class="detail-value" id="createdAt">{{ p.createdAt | date:'medium' }}</span>
       </div>
     </div>
-  }
+
+    <hr class="divider" />
+
+    <h3 class="section-title">
+      <i class="pi pi-calendar"></i> Historial de Citas
+    </h3>
+
+    <div *ngIf="loadingAppointments" class="skeleton-detail">
+      <p-skeleton height="2.5rem" styleClass="mb-2" *ngFor="let item of [1,2,3]"></p-skeleton>
+    </div>
+
+    <div *ngIf="!loadingAppointments && appointments().length === 0" class="empty-appointments">
+      <i class="pi pi-inbox"></i>
+      <p>No se encontraron citas para este paciente.</p>
+    </div>
+
+    <p-table *ngIf="!loadingAppointments && appointments().length > 0" [value]="appointments()" styleClass="p-datatable-sm" [tableStyle]="{ 'min-width': '40rem' }">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Fecha</th>
+          <th>Doctor</th>
+          <th>Especialidad</th>
+          <th>Diagnostico</th>
+          <th>Tratamiento</th>
+          <th>Valor</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-appt>
+        <tr>
+          <td>{{ appt.appointmentDate | date:'medium' }}</td>
+          <td>{{ appt.doctorName }}</td>
+          <td>{{ appt.doctorSpecialty }}</td>
+          <td>{{ appt.diagnosis || '-' }}</td>
+          <td>{{ appt.treatment || '-' }}</td>
+          <td>{{ appt.fee | currency:'USD':'symbol':'1.2-2' }}</td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="emptymessage">
+        <tr>
+          <td colspan="6">No hay citas registradas.</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </ng-container>
 
   <div class="detail-actions">
-    <button pButton type="button" severity="secondary" label="Volver" icon="pi pi-arrow-left" (click)="goBack()" title="Volver a la lista de pacientes" aria-label="Volver a la lista de pacientes"></button>
-    <button pButton type="button" label="Editar" icon="pi pi-pencil" [routerLink]="['/patients', patient()?.patientId, 'edit']" title="Editar este paciente" aria-label="Editar este paciente"></button>
+    <button pButton type="button" severity="secondary" label="Volver" icon="pi pi-arrow-left" (click)="goBack()"></button>
+    <button pButton type="button" label="Editar" icon="pi pi-pencil" [routerLink]="['/patients', patient()?.patientId, 'edit']"></button>
   </div>
 </p-card>

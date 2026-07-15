@@ -37,7 +37,7 @@ describe('PatientFormComponent', () => {
       documentNumber: '123456',
       firstName: 'Ana',
       lastName: 'Lopez',
-      birthDate: '1990-01-01',
+      birthDate: new Date(1990, 0, 1),
       phoneNumber: '555-0100',
       email: 'ana@example.com',
     });

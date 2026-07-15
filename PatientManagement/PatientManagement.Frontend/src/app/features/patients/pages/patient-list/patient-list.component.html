@@ -3,9 +3,10 @@
     <span class="toolbar-title">Pacientes</span>
   </ng-template>
   <ng-template pTemplate="end">
-    <button pButton icon="pi pi-refresh" (click)="refresh()" [loading]="loading()" title="Actualizar lista de pacientes" aria-label="Actualizar lista de pacientes"></button>
-    <button pButton icon="pi pi-file-export" label="Exportar CSV" severity="secondary" (click)="exportCSV()" title="Exportar a CSV" aria-label="Exportar a CSV"></button>
-    <button pButton icon="pi pi-plus" label="Nuevo Paciente" routerLink="/patients/new" title="Crear nuevo paciente" aria-label="Crear nuevo paciente"></button>
+    <button pButton icon="pi pi-refresh" (click)="refresh()" [loading]="loading()" pTooltip="Actualizar lista" tooltipPosition="bottom"></button>
+    <button pButton icon="pi pi-file-export" label="Exportar CSV" severity="secondary" (click)="exportCSV()" pTooltip="Exportar a CSV" tooltipPosition="bottom"></button>
+    <button pButton icon="pi pi-chart-bar" label="Reporte" severity="secondary" (click)="openReportDialog()" pTooltip="Generar reporte por fecha" tooltipPosition="bottom"></button>
+    <button pButton icon="pi pi-plus" label="Nuevo Paciente" routerLink="/patients/new" pTooltip="Crear nuevo paciente" tooltipPosition="bottom"></button>
   </ng-template>
 </p-toolbar>
 
@@ -13,25 +14,21 @@
   <div class="filter-row">
     <span class="p-input-icon-left filter-item">
       <i class="pi pi-search"></i>
-      <input pInputText [ngModel]="nameFilterValue()" (ngModelChange)="onNameChange($event)" placeholder="Buscar por nombre..." autocomplete="off" aria-label="Filtrar por nombre" title="Filtrar pacientes por nombre" />
+      <input pInputText [ngModel]="nameFilterValue()" (ngModelChange)="onNameChange($event)" placeholder="Buscar por nombre..." autocomplete="off" />
     </span>
     <span class="p-input-icon-left filter-item">
       <i class="pi pi-id-card"></i>
-      <input pInputText [ngModel]="documentFilterValue()" (ngModelChange)="onDocumentNumberChange($event)" placeholder="Buscar por documento..." autocomplete="off" aria-label="Filtrar por numero de documento" title="Filtrar pacientes por numero de documento" />
+      <input pInputText [ngModel]="documentFilterValue()" (ngModelChange)="onDocumentNumberChange($event)" placeholder="Buscar por documento..." autocomplete="off" />
     </span>
-    <button pButton icon="pi pi-filter-slash" severity="secondary" (click)="onClearFilters()" [disabled]="!hasActiveFilters()" aria-label="Limpiar filtros" title="Limpiar filtros"></button>
+    <button pButton icon="pi pi-filter-slash" severity="secondary" (click)="onClearFilters()" [disabled]="!hasActiveFilters()" pTooltip="Limpiar filtros" tooltipPosition="bottom"></button>
   </div>
 </div>
 
-@if (loading()) {
-  <div class="skeleton-table">
-    @for (item of [1,2,3,4,5]; track item) {
-      <p-skeleton height="3rem" styleClass="mb-2" borderRadius="8px" />
-    }
-  </div>
-}
+<div *ngIf="loading()" class="skeleton-table">
+  <p-skeleton height="3rem" styleClass="mb-2" *ngFor="let item of [1,2,3,4,5]"></p-skeleton>
+</div>
 
-<p-table #table [value]="(patients$ | async) ?? []" [rowTrackBy]="rowTrackBy" [loading]="loading()" [paginator]="false" class="p-datatable-sm" [tableStyle]="{ 'min-width': '50rem' }">
+<p-table #table [value]="(patients$ | async) ?? []" [rowTrackBy]="rowTrackBy" [loading]="loading()" [paginator]="false" styleClass="p-datatable-sm" [tableStyle]="{ 'min-width': '50rem' }">
   <ng-template pTemplate="header">
     <tr>
       <th>Tipo Doc.</th>
@@ -53,9 +50,9 @@
       <td><span class="mobile-label">Fecha de creacion:</span>{{ patient.createdAt | date:'shortDate' }}</td>
       <td>
         <div class="action-buttons">
-          <button pButton icon="pi pi-eye" class="p-button-rounded p-button-text" [routerLink]="['/patients', patient.patientId]" title="Ver detalles" aria-label="Ver detalles de {{ patient.firstName }} {{ patient.lastName }}"></button>
-          <button pButton icon="pi pi-pencil" class="p-button-rounded p-button-text" [routerLink]="['/patients', patient.patientId, 'edit']" title="Editar paciente" aria-label="Editar {{ patient.firstName }} {{ patient.lastName }}"></button>
-          <button pButton icon="pi pi-trash" class="p-button-rounded p-button-text p-button-danger" (click)="onDelete(patient)" title="Eliminar paciente" aria-label="Eliminar {{ patient.firstName }} {{ patient.lastName }}"></button>
+          <button pButton icon="pi pi-eye" class="p-button-rounded p-button-text" [routerLink]="['/patients', patient.patientId]" pTooltip="Ver detalles" tooltipPosition="top"></button>
+          <button pButton icon="pi pi-pencil" class="p-button-rounded p-button-text" [routerLink]="['/patients', patient.patientId, 'edit']" pTooltip="Editar" tooltipPosition="top"></button>
+          <button pButton icon="pi pi-trash" class="p-button-rounded p-button-text p-button-danger" (click)="onDelete(patient)" pTooltip="Eliminar" tooltipPosition="top"></button>
         </div>
       </td>
     </tr>
@@ -73,8 +70,20 @@
   </ng-template>
 </p-table>
 
-@if (totalCount$ | async; as totalCount) {
-  <p-paginator [rows]="pageSize()" [totalRecords]="totalCount" (onPageChange)="onPageChange($event)" [showCurrentPageReport]="true" currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} pacientes" />
-}
+<div *ngIf="totalCount$ | async as totalCount">
+  <p-paginator [rows]="pageSize()" [totalRecords]="totalCount" (onPageChange)="onPageChange($event)" [showCurrentPageReport]="true" currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} pacientes"></p-paginator>
+</div>
 
-<p-confirm-dialog />
+<p-confirmDialog></p-confirmDialog>
+
+<p-dialog header="Generar Reporte" [visible]="reportDialogVisible()" (visibleChange)="reportDialogVisible.set($event)" [modal]="true" [style]="{ width: '400px' }" appendTo="body">
+  <div class="report-dialog-content">
+    <label for="reportDate">Fecha de creacion desde:</label>
+    <p-calendar id="reportDate" [ngModel]="reportDate()" (ngModelChange)="reportDate.set($event)" dateFormat="dd/mm/yy" placeholder="Seleccionar fecha (opcional)" [showIcon]="true" [showClear]="true" styleClass="w-full"></p-calendar>
+    <small class="report-hint">Si no selecciona fecha, se exportaran todos los registros.</small>
+  </div>
+  <ng-template pTemplate="footer">
+    <button pButton label="Cancelar" severity="secondary" (click)="reportDialogVisible.set(false)"></button>
+    <button pButton label="Descargar CSV" icon="pi pi-download" (click)="downloadReport()"></button>
+  </ng-template>
+</p-dialog>

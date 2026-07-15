@@ -73,4 +73,24 @@ public class PatientRepository : IPatientRepository
         _context.Patients.Remove(patient);
         await _context.SaveChangesAsync(cancellationToken);
     }
+
+    public async Task<IEnumerable<Appointment>> GetAppointmentsByPatientIdAsync(int patientId, CancellationToken cancellationToken = default)
+    {
+        return await _context.Appointments
+            .AsNoTracking()
+            .Include(a => a.Doctor)
+            .Where(a => a.PatientId == patientId)
+            .OrderByDescending(a => a.AppointmentDate)
+            .ToListAsync(cancellationToken);
+    }
+
+    public async Task<IEnumerable<Patient>> GetPatientsCreatedAfterAsync(DateTime createdAfter, CancellationToken cancellationToken = default)
+    {
+        return await _context.Patients
+            .AsNoTracking()
+            .Where(p => p.CreatedAt >= createdAfter)
+            .OrderBy(p => p.LastName)
+            .ThenBy(p => p.FirstName)
+            .ToListAsync(cancellationToken);
+    }
 }

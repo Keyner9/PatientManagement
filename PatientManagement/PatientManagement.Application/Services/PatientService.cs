@@ -98,7 +98,7 @@ public class PatientService : IPatientService
             if (duplicate)
             {
                 throw new DuplicatePatientException(
-                    $"A patient with document {dto.DocumentType} {dto.DocumentNumber} already exists.");
+                    $"Ya existe un paciente con el documento {dto.DocumentType} {dto.DocumentNumber}.");
             }
         }
 
@@ -126,5 +126,38 @@ public class PatientService : IPatientService
         _logger.LogInformation("Patient {PatientId} deleted", id);
 
         return ApiResponse<object>.Ok(null!, "Paciente eliminado correctamente.");
+    }
+
+    public async Task<ApiResponse<IEnumerable<AppointmentDto>>> GetAppointmentsAsync(int patientId, CancellationToken cancellationToken = default)
+    {
+        var patient = await _repository.GetByIdAsync(patientId, cancellationToken);
+
+        if (patient is null)
+        {
+            throw new NotFoundException($"No se encontro el paciente con id {patientId}.");
+        }
+
+        var appointments = await _repository.GetAppointmentsByPatientIdAsync(patientId, cancellationToken);
+
+        var dtos = appointments.Select(a => new AppointmentDto
+        {
+            AppointmentId = a.AppointmentId,
+            AppointmentDate = a.AppointmentDate,
+            Diagnosis = a.Diagnosis,
+            Treatment = a.Treatment,
+            Fee = a.Fee,
+            DoctorName = $"{a.Doctor.FirstName} {a.Doctor.LastName}",
+            DoctorSpecialty = a.Doctor.Specialty,
+            CreatedAt = a.CreatedAt,
+        });
+
+        return ApiResponse<IEnumerable<AppointmentDto>>.Ok(dtos);
+    }
+
+    public async Task<ApiResponse<IEnumerable<PatientListDto>>> GetPatientsCreatedAfterAsync(DateTime createdAfter, CancellationToken cancellationToken = default)
+    {
+        var patients = await _repository.GetPatientsCreatedAfterAsync(createdAfter, cancellationToken);
+        var dtos = _mapper.Map<IEnumerable<PatientListDto>>(patients);
+        return ApiResponse<IEnumerable<PatientListDto>>.Ok(dtos);
     }
 }

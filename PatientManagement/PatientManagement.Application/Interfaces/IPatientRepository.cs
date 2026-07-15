@@ -11,4 +11,6 @@ public interface IPatientRepository
     Task<Patient> CreateAsync(Patient patient, CancellationToken cancellationToken = default);
     Task UpdateAsync(Patient patient, CancellationToken cancellationToken = default);
     Task DeleteAsync(Patient patient, CancellationToken cancellationToken = default);
+    Task<IEnumerable<Appointment>> GetAppointmentsByPatientIdAsync(int patientId, CancellationToken cancellationToken = default);
+    Task<IEnumerable<Patient>> GetPatientsCreatedAfterAsync(DateTime createdAfter, CancellationToken cancellationToken = default);
 }

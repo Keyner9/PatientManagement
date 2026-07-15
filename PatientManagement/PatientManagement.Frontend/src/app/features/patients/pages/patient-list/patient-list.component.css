@@ -6,6 +6,34 @@ p-toolbar {
   margin-bottom: 1rem;
 }
 
+p-table {
+  display: block;
+  width: 100%;
+}
+
+p-table .p-datatable,
+p-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+p-table .p-datatable-thead > tr > th,
+p-table .p-datatable-tbody > tr > td {
+  border: 1px solid var(--p-content-border-color, #dee2e6);
+  padding: 0.75rem 1rem;
+  text-align: left;
+}
+
+p-table .p-datatable-thead > tr > th {
+  background: var(--p-datatable-header-background, var(--p-surface-50, #f8f9fa));
+  font-weight: 600;
+  color: var(--p-text-color, #374151);
+}
+
+p-table .p-datatable-tbody > tr:hover {
+  background: var(--p-datatable-row-hover-background, var(--p-surface-50, #f8f9fa));
+}
+
 .toolbar-title {
   font-weight: 600;
   font-size: 1.25rem;
@@ -98,4 +126,23 @@ p-toolbar {
     border-bottom: 1px solid var(--p-content-border-color, #dee2e6);
     margin-bottom: 0.5rem;
   }
+}
+
+.report-dialog-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.report-dialog-content label {
+  font-weight: 600;
+}
+
+.w-full {
+  width: 100%;
+}
+
+.report-hint {
+  color: var(--p-text-muted-color, #6c757d);
+  font-size: 0.85rem;
 }

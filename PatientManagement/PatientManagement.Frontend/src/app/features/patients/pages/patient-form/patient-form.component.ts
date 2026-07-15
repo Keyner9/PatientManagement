@@ -1,13 +1,13 @@
 import { ChangeDetectionStrategy, Component, DestroyRef, inject, signal } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Location } from '@angular/common';
+import { Location, NgIf } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { CardModule } from 'primeng/card';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
-import { DatePickerModule } from 'primeng/datepicker';
-import { SelectModule } from 'primeng/select';
+import { CalendarModule } from 'primeng/calendar';
+import { DropdownModule } from 'primeng/dropdown';
 import { MessageModule } from 'primeng/message';
 import { HttpErrorResponse } from '@angular/common/http';
 import { PatientService } from '../../../../services/patient.service';
@@ -17,12 +17,13 @@ const DOCUMENT_TYPES: string[] = ['DNI', 'CE', 'PASSPORT'];
 
 @Component({
   selector: 'app-patient-form',
+  standalone: true,
   imports: [
-    ReactiveFormsModule,
-    CardModule, InputTextModule, ButtonModule, DatePickerModule, SelectModule, MessageModule,
+    ReactiveFormsModule, NgIf,
+    CardModule, InputTextModule, ButtonModule, CalendarModule, DropdownModule, MessageModule,
   ],
   templateUrl: './patient-form.component.html',
-  styleUrl: './patient-form.component.css',
+  styleUrls: ['./patient-form.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PatientFormComponent {
@@ -44,7 +45,7 @@ export class PatientFormComponent {
     documentNumber: ['', [Validators.required, Validators.maxLength(20)]],
     firstName: ['', [Validators.required, Validators.maxLength(80)]],
     lastName: ['', [Validators.required, Validators.maxLength(80)]],
-    birthDate: ['', Validators.required],
+    birthDate: [null as Date | null, Validators.required],
     phoneNumber: ['', Validators.maxLength(20)],
     email: ['', [Validators.email, Validators.maxLength(120)]],
   });
@@ -64,12 +65,14 @@ export class PatientFormComponent {
     this.#patientService.getById(id).pipe(takeUntilDestroyed(this.#destroyRef)).subscribe({
       next: (res: ApiResponse<Patient>) => {
         const p = res.data;
+        const birthDateParts = p.birthDate.split('-');
+        const birthDate = new Date(Number(birthDateParts[0]), Number(birthDateParts[1]) - 1, Number(birthDateParts[2]));
         this.form.patchValue({
           documentType: p.documentType,
           documentNumber: p.documentNumber,
           firstName: p.firstName,
           lastName: p.lastName,
-          birthDate: p.birthDate,
+          birthDate: birthDate,
           phoneNumber: p.phoneNumber ?? '',
           email: p.email ?? '',
         });
@@ -84,6 +87,8 @@ export class PatientFormComponent {
 
     this.loading.set(true);
     const raw = this.form.getRawValue();
+    const bd = raw.birthDate as Date;
+    const birthDateStr = `${bd.getFullYear()}-${String(bd.getMonth() + 1).padStart(2, '0')}-${String(bd.getDate()).padStart(2, '0')}`;
 
     if (this.isEdit()) {
       const dto: UpdatePatientDto = {
@@ -91,7 +96,7 @@ export class PatientFormComponent {
         documentNumber: raw.documentNumber,
         firstName: raw.firstName,
         lastName: raw.lastName,
-        birthDate: raw.birthDate,
+        birthDate: birthDateStr,
         phoneNumber: raw.phoneNumber || undefined,
         email: raw.email || undefined,
       };
@@ -105,7 +110,7 @@ export class PatientFormComponent {
         documentNumber: raw.documentNumber,
         firstName: raw.firstName,
         lastName: raw.lastName,
-        birthDate: raw.birthDate,
+        birthDate: birthDateStr,
         phoneNumber: raw.phoneNumber || undefined,
         email: raw.email || undefined,
       };

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, DestroyRef, inject, signal, ViewChild } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { AsyncPipe, DatePipe } from '@angular/common';
+import { AsyncPipe, DatePipe, NgFor, NgIf } from '@angular/common';
 import { BehaviorSubject, Subject, Observable } from 'rxjs';
 import { debounceTime, distinctUntilChanged, finalize, map, shareReplay, switchMap, tap } from 'rxjs/operators';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -9,22 +9,27 @@ import { PaginatorModule, PaginatorState } from 'primeng/paginator';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { DialogModule } from 'primeng/dialog';
+import { CalendarModule } from 'primeng/calendar';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { SkeletonModule } from 'primeng/skeleton';
 import { ToolbarModule } from 'primeng/toolbar';
 import { FormsModule } from '@angular/forms';
+import { TooltipModule } from 'primeng/tooltip';
 import { PatientService } from '../../../../services/patient.service';
 import { ApiResponse, Patient, PatientFilter, PagedResult } from '../../../../models/patient';
 
 @Component({
   selector: 'app-patient-list',
+  standalone: true,
   imports: [
-    RouterLink, AsyncPipe, DatePipe, FormsModule,
+    RouterLink, AsyncPipe, DatePipe, NgIf, NgFor, FormsModule,
     TableModule, PaginatorModule, InputTextModule, ButtonModule,
-    ConfirmDialogModule, SkeletonModule, ToolbarModule,
+    ConfirmDialogModule, DialogModule, CalendarModule,
+    SkeletonModule, ToolbarModule, TooltipModule,
   ],
   templateUrl: './patient-list.component.html',
-  styleUrl: './patient-list.component.css',
+  styleUrls: ['./patient-list.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [ConfirmationService],
 })
@@ -48,6 +53,9 @@ export class PatientListComponent {
   readonly loading = signal(true);
 
   readonly hasActiveFilters = computed(() => !!this.nameFilterValue() || !!this.documentFilterValue());
+
+  readonly reportDialogVisible = signal(false);
+  readonly reportDate = signal<Date | null>(null);
 
   readonly #response$: Observable<ApiResponse<PagedResult<Patient>>> = this.#filterSubject.pipe(
     tap(() => this.loading.set(true)),
@@ -129,6 +137,17 @@ export class PatientListComponent {
 
   exportCSV(): void {
     this.table.exportCSV();
+  }
+
+  openReportDialog(): void {
+    this.reportDate.set(null);
+    this.reportDialogVisible.set(true);
+  }
+
+  downloadReport(): void {
+    const url = this.#patientService.getReportUrl(this.reportDate() ?? undefined);
+    window.open(url, '_blank');
+    this.reportDialogVisible.set(false);
   }
 
   #applyFilter(): void {

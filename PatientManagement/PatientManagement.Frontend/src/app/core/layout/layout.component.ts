@@ -6,9 +6,10 @@ import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-layout',
+  standalone: true,
   imports: [RouterOutlet, RouterLink, ToolbarModule, ToastModule, ButtonModule],
   templateUrl: './layout.component.html',
-  styleUrl: './layout.component.css',
+  styleUrls: ['./layout.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LayoutComponent { }

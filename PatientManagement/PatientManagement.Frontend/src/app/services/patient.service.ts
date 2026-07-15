@@ -2,7 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../environments/environment';
-import { Patient, PatientFilter, PagedResult, CreatePatientDto, UpdatePatientDto, ApiResponse } from '../models/patient';
+import { Patient, PatientFilter, PagedResult, CreatePatientDto, UpdatePatientDto, ApiResponse, Appointment } from '../models/patient';
 
 @Injectable({ providedIn: 'root' })
 export class PatientService {
@@ -32,5 +32,15 @@ export class PatientService {
 
   delete(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  }
+
+  getAppointments(patientId: number): Observable<ApiResponse<Appointment[]>> {
+    return this.http.get<ApiResponse<Appointment[]>>(`${this.apiUrl}/${patientId}/appointments`);
+  }
+
+  getReportUrl(createdAfter?: Date): string {
+    const params = new URLSearchParams();
+    if (createdAfter) params.set('createdAfter', createdAfter.toISOString());
+    return `${this.apiUrl}/report?${params}`;
   }
 }
